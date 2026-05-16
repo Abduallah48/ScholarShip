@@ -14,7 +14,7 @@ import "@fontsource/tajawal/800.css";
 
 function Home() {
     return(
-        <div  className="flex flex-col  bg-purple-100 gap-8 
+        <div  className="flex flex-col   bg-purple-100 gap-8 
                          md:mx-auto md:max-w-5xl
                          lg:mx-auto lg:max-w-7xl
                          dark:bg-slate-950">

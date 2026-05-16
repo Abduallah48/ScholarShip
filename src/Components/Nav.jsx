@@ -1,7 +1,7 @@
 import ToggleButton from "./ToggleButton";
 import {useState} from 'react';
 import LogIn from "./LogIn.jsx";
-import AskAI from "./AskAI.jsx";
+import AskAI from "../Components/Ask-AI-Components/AskAI.jsx";
 
 
 function Nav() {
@@ -21,7 +21,7 @@ function Nav() {
     };
     return(
         <div className="">
-        {!isLogedIn && <div className="flex  flex-row-reverse justify-between bg-slate-200 text-slate-950 px-3 py-2 shadow-md shadow-slate-400
+        {!isLogedIn && <div className="flex flex-row-reverse justify-between bg-slate-200 text-slate-950 px-3 py-2 shadow-md shadow-slate-400
                         md:mx-auto md:max-w-5xl
                         lg:mx-auto lg:max-w-7xl
                         dark:bg-slate-900 dark:text-slate-100">
@@ -88,7 +88,7 @@ function Nav() {
                 <a href="#contact-us" onClick={() => {SetListIsOpen(false)}}
                         className="font-semibold text-md px-6 ">Contact Us</a>
                 </div>}
-            <div className=" hidden md:flex flex-row items-center
+            <div className=" hidden md:flex flex-row items-center 
                                         dark:bg-slate-900 dark:text-slate-100  ">
                 <a href="#home" 
                         className="font-semibold text-md  px-6 ">Home</a>
