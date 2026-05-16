@@ -1,4 +1,4 @@
-import HeroPhoto from "./assets/Hero.jpg";
+import HeroPhoto from "../assets/Hero.jpg";
 function Hero() {
     return(
         <div id="home" className="relative bg-center  mt-36 rounded-md   flex items-center justify-center  p-6">

@@ -1,4 +1,4 @@
-import useTheme from './Hooks/useTheme.jsx';
+import useTheme from '../Hooks/useTheme.jsx';
 
 function ToggleButton() {
     const {isDark, toggleTheme} = useTheme();
