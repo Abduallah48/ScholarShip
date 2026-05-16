@@ -1,5 +1,5 @@
 //import React, {useState, useEffect} from "react";
-import photo from '../assets/messi.png'
+import photo from './assets/messi.png'
 
 function Card() {
 
