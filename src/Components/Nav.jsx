@@ -52,12 +52,12 @@ function Nav() {
             <div className="flex gap-4">
                 <button onClick={askaiIsOpenHandler} className=" relative font-bold text-white text-xl bg-indigo-700 rounded-xl px-2 hover:bg-indigo-800 cursor-pointer shadow-xl/20">
                     Ask AI
-                </button>
-                  {!askAIClick && <AskAI className= "abslute top-full mt-2 right-0 z-50"/>}  
+                </button >
+                {askAIClick && <AskAI askAIClick= {askAIClick} SetAskAIClick= {SetAskAIClick}/>} 
 
                 <button onClick={logInIsOpenHandler} className=" relativefont-bold text-white text-xl bg-indigo-700 rounded-xl px-2 hover:bg-indigo-800 cursor-pointer shadow-xl/20">
                     سجل دخول
-                  {!logInClick && <LogIn className= "abslute top-0 mt-2 right-0 z-50"/>}  
+                  {logInClick && <LogIn />} 
                 </button>
             </div>
             <div className="flex md:hidden">{ToggleButton()}</div>
@@ -78,7 +78,7 @@ function Nav() {
             <button onClick={listIsOpenHandler} className="text-2xl md:hidden">
                 {listIsOpen ? '✕' : '☰'}
             </button>
-            {listIsOpen && <div className="flex fixed top-33 left-2 right-0 flex-col items-end gap-2 pr-6 pb-3 w-38 ml-auto bg-slate-200 pt-3
+            {listIsOpen && <div className="flex fixed top-33  left-2 right-0 flex-col items-end gap-2 pr-6 pb-3 w-38 ml-auto bg-slate-200 pt-3
                                             md:hidden
                                         dark:bg-slate-900 dark:text-slate-100  ">
                 <a href="#home" onClick={() => {SetListIsOpen(false)}} 
