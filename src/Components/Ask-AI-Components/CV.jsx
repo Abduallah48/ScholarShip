@@ -9,7 +9,7 @@ const CVSteps = [
     {id: "age", placeholder: "أدخل عمرك"},
     {id: "specialization", placeholder: "أدخل اختصاصك"},
     {id: "selfDesc", placeholder: "أدخل هواياتك أو موضوع اضافي تريد ذكره"},
-]
+];
 
 function CV({onGoBackDoc}) {
     
@@ -28,6 +28,11 @@ function CV({onGoBackDoc}) {
     const currentStep = CVSteps[CVStepIndex];
 
     function nextStep() {
+        const currentValue = CVForm[currentStep.id];
+        if(!currentValue || currentValue.trim() === ""){
+            alert("أدخل المعلومات المطلوبة");
+            return;
+        }
         if(CVStepIndex < CVSteps.length - 1){
             SetCVStepIndex(CVStepIndex + 1);
 
@@ -46,7 +51,7 @@ function CV({onGoBackDoc}) {
     return(
         <div className="flex flex-col  gap-2 w-full h-full pt-12">
             <button onClick={onGoBackDoc} className="bg-indigo-800 text-indigo-100 rounded-2xl p-2 cursor-pointer hover:bg-indigo-700 shadow-2xl/30 mr-auto absolute top-4 left-4">← رجوع</button>
-            <div className="flex flex-col  flex-1 border border-indigo-800  rounded-lg ">
+            <div className="flex flex-col  flex-1 border border-indigo-800  rounded-lg overflow-y-auto">
                 <p className="text-lg text-indigo-950 p-2">{CVForm.CVLang}</p>
             </div>
             <div className="flex w-full mt-auto">

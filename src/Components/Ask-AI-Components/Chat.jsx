@@ -30,8 +30,8 @@ function Chat({OnGoToHome}) {
 
                     
             </div>
-            <div className="flex flex-row-reverse gap-6 mt-auto">
-                <input type="text" value={chatInput} onChange={(e) => chatHandler(e)} placeholder="ماذا تريد ان تسأل؟" className="bg-indigo-100 border border-indigo-300 px-6 py-4 rounded-md"/>
+            <div className="flex flex-row-reverse gap-6 mt-auto w-full">
+                <input type="text" value={chatInput} onChange={(e) => chatHandler(e)} placeholder="ماذا تريد ان تسأل؟" className="flex flex-1 bg-indigo-100 border border-indigo-300 px-6 py-4 rounded-md text-indigo-800 text-lg text-right"/>
                 <button type="submit" onClick={() => sendMessageHandler()}  className="bg-indigo-600 px-4 py-2 rounded-2xl text-indigo-50 font-bold text-lg cursor-pointer hover:bg-indigo-700 transition-colors">إرسال</button>
             </div>
             
