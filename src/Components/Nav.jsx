@@ -29,35 +29,35 @@ function Nav() {
             <button onClick={listIsOpenHandler} className="text-2xl md:hidden">
                 {listIsOpen ? '✕' : '☰'}
             </button>
-            {listIsOpen && <div className="flex fixed top-33 left-2 right-0 flex-col items-end gap-2 pr-6 pb-3 w-38 ml-auto bg-slate-200 pt-3
+            {listIsOpen && <div className="flex fixed top-33 left-2 right-0 flex-col items-end gap-4 pr-6 pb-3 w-45 ml-auto bg-slate-200 pt-5
                                             md:hidden
                                         dark:bg-slate-900 dark:text-slate-100  ">
                 <a href="#home" onClick={() => {SetListIsOpen(false)}} 
-                        className="font-semibold text-md  px-6 ">Home</a>
+                        className="font-semibold text-md  px-6 ">الصفحة الرئيسية</a>
                 <a href="#about" onClick={() => {SetListIsOpen(false)}}
-                        className="font-semibold text-md px-6 ">About</a>
+                        className="font-semibold text-md px-6 ">حول المنصة</a>
                 <a href="#contact-us" onClick={() => {SetListIsOpen(false)}}
-                        className="font-semibold text-md px-6 ">Contact Us</a>
+                        className="font-semibold text-md px-6 ">تواصل معنا</a>
                 </div>}
             <div className=" hidden md:flex flex-row items-center
                                         dark:bg-slate-900 dark:text-slate-100  ">
                 <a href="#home" 
-                        className="font-semibold text-md  px-6 ">Home</a>
+                        className="font-semibold text-md  px-6 ">الصفحة الرئيسية</a>
                 <a href="#about" 
-                        className="font-semibold text-md px-6 ">About</a>
+                        className="font-semibold text-md px-6 ">حول المنصة</a>
                 <a href="#contact-us" 
-                        className="font-semibold text-md px-6 ">Contact Us</a>
+                        className="font-semibold text-md px-6 ">تواصل معنا</a>
             </div>
             
             <div className="flex gap-4">
                 <button onClick={askaiIsOpenHandler} className=" relative font-bold text-white text-xl bg-indigo-700 rounded-xl px-2 hover:bg-indigo-800 cursor-pointer shadow-xl/20">
-                    Ask AI
+                   AI إسأل 
                 </button >
                 {askAIClick && <AskAI askAIClick= {askAIClick} SetAskAIClick= {SetAskAIClick}/>} 
 
                 <button onClick={logInIsOpenHandler} className=" relativefont-bold text-white text-xl bg-indigo-700 rounded-xl px-2 hover:bg-indigo-800 cursor-pointer shadow-xl/20">
                     سجل دخول
-                  {logInClick && <LogIn />} 
+                  {logInClick && <LogIn logInClick = {logInClick} SetLogInClick = {SetLogInClick}/>} 
                 </button>
             </div>
             <div className="flex md:hidden">{ToggleButton()}</div>
