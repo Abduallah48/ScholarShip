@@ -4,6 +4,7 @@
 import FiltersButtons from "./FiltersButtons.jsx";
 import ScholarshipSection from './ScholarshipSection.jsx';
 import Hero from './Hero.jsx';
+import About from "./About.jsx";
 // import "@fontsource/tajawal/400.css";
 // import "@fontsource/tajawal/500.css";
 // import "@fontsource/tajawal/700.css";
@@ -14,7 +15,7 @@ import Hero from './Hero.jsx';
 
 function Home() {
     return(
-        <div  className="flex flex-col  bg-purple-100 gap-8 
+        <div  className="flex flex-col   bg-purple-100 gap-8 
                          md:mx-auto md:max-w-5xl
                          lg:mx-auto lg:max-w-7xl
                          dark:bg-slate-950">
@@ -37,10 +38,8 @@ function Home() {
             
             <ScholarshipSection />
 
-            <div id="about" className="p-6">
-                <p className="text-slate-950 text-center text-lg dark:text-slate-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione itaque reiciendis similique dicta commodi neque iste voluptas deleniti. Dolorum debitis fugiat, velit a reprehenderit quis tempora laboriosam quisquam asperiores esse.</p>
-            </div>
-            <hr className="text-2xl text-slate-950 dark:text-white"/>
+            <About />
+            <hr className="text-2xl text-indigo-800 dark:text-white"/>
             
 
         </div>

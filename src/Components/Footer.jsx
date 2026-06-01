@@ -24,9 +24,9 @@ function Footer() {
                 ">منح روسيا</a>
             </div>
             <div className="flex flex-col gap-4 items-center">
-                <p className="text-lg text-slate-950
+                <p className="text-lg text-slate-950 font-bold
                                 dark:text-slate-50
-                ">للتواصل معنا:
+                ">تواصل معنا
                 </p>
                 <div className="flex flex-col gap-4 items-e">
                     <span className="text-lg text-slate-950
