@@ -12,13 +12,10 @@ return(
                             md:hidden
                             lg:hidden
                             dark:bg-slate-800 dark:text-slate-50">
-                <img src={lightLogo} alt="Logo" className="fixed top-0 right-0 left-0 w-full h-32 object-contain dark:hidden
-                                                            md:hidden
-                                                            lg:hidden"/>
-                <img src={darkLogo} alt="Dark Logo" className="hidden fixed top-0 right-0 left-0 w-full h-32 object-contain dark:block
-                                                                md:hidden
-                                                                lg:hidden"/>
+                <p className="text-indigo-600 font-bold text-5xl 
+                                    dark:text-indigo-50">منحَة</p>
             </div>
+
             <div className="fixed top-20 left-0 right-0 z-50  md:top-0 ">
                 <Nav />
             </div>
