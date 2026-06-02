@@ -1,0 +1,60 @@
+import {useState} from "react";
+
+function SignUp() {
+    const [name, SetName] = useState("");
+    const [email, SetEmail] = useState("");
+    const [password, SetPassword] = useState("");
+    
+    function nameHandler(e){
+        SetName(e.target.value);
+    };
+    function emailHandler(e){
+        SetEmail(e.target.value);
+    };
+    function passwordHandler(e){
+        SetPassword(e.target.value);
+    };
+    async function formHandler(e){
+        e.preventDefault();
+        const formData = {
+            name: name,
+            email: email,
+            password: password
+        };
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
+            });
+            if(res.ok) {
+                const data = await res.json();
+                if(data.data && data.data.token) {
+                    localStorage.setItem("auth_token", data.data.token)
+                    localStorage.setItem("user", JSON.stringify(data.data.user))
+                }
+                console.log("Account created succefuly", data)
+            }
+            else{
+                console.error("server retured an error status", res.status)
+            }
+
+        }catch(error) {
+            console.error("Somthing went wrong!", error)
+        }
+    };
+    return(
+        <form onSubmit = {formHandler}>
+            <div className="relative bg-slate-200 rounded-2xl p-4 w-full max-w-2xl h-120 border-slate-300 border-2 shadow-xl shadow-indigo-300 mx-auto flex flex-col gap-6 justify-center items-center ">
+                    <p className="text-4xl text-indigo-600 mb-8 font-bold">  أنشأحساب جديد</p>
+                    <input value={name} onChange={(e) => nameHandler(e)} type = "text" placeholder="اسم المستخدم" className="flex  border border-indigo-400 px-4 py-2 bg-indigo-200 text-indigo-950 text-lg rounded-md "/>
+                    <input value={email} onChange={(e) => emailHandler(e)} type = "email" placeholder="البريد الإلكتروني" className="flex  border border-indigo-400 px-4 py-2 bg-indigo-200 text-indigo-950 text-lg rounded-md "/>
+                    <input value={password} onChange={(e) => passwordHandler(e)} type = "password" placeholder="كلمة المرور" className="flex  border border-indigo-400 px-4 py-2 bg-indigo-200 text-indigo-950 text-lg rounded-md "/>
+                    <button type="submit" className="bg-indigo-600 px-4 py-2 rounded-2xl text-indigo-50 font-bold text-lg cursor-pointer hover:bg-indigo-700 transition-colors">تسجيل الدخول</button>
+        </div>
+        </form>
+    );
+}
+export default SignUp
