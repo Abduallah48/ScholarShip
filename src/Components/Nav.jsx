@@ -56,12 +56,15 @@ function Nav() {
                 {askAIClick && <AskAI askAIClick= {askAIClick} SetAskAIClick= {SetAskAIClick}/>} 
 
                 <button onClick={logInIsOpenHandler} className=" relativefont-bold text-white text-xl bg-indigo-700 rounded-xl px-2 hover:bg-indigo-800 cursor-pointer shadow-xl/20">
-                    سجل دخول
-                  {logInClick && <LogIn logInClick = {logInClick} SetLogInClick = {SetLogInClick}/>} 
+                    سجل دخول  
                 </button>
+                {logInClick && <LogIn logInClick = {logInClick} SetLogInClick = {SetLogInClick}/>}
             </div>
             <div className="flex md:hidden">{ToggleButton()}</div>
-            <p className="text-center text-3xl p-2 hidden md:flex">Commute</p>
+            <p className="text-indigo-600 font-bold text-5xl hidden
+            md:flex md:pl-2
+            lg:flex lg:pl-4
+                                    dark:text-indigo-50">منحَة</p>
                 
         </div>
 

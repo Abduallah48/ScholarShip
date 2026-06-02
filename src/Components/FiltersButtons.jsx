@@ -18,7 +18,7 @@ function FiltersButtons() {
                              dark:text-slate-200'>:فرز حسب
             </span>
             <button onClick={() => SetIsCountry(!isCountry)}
-                    className="relative bg-slate-600  text-slate-200 border border-slate-400 rounded-lg px-4 ml-4
+                    className="relative bg-slate-600  text-slate-200 border border-slate-400 rounded-lg px-4 ml-4 cursor-pointer
                                   dark:bg-slate-600 dark:text-slate-100 dark:border-slate-700 ">
                 {country}
 
@@ -26,38 +26,38 @@ function FiltersButtons() {
                                                 dark:bg-slate-600'>
                                 <button onClick={() => {SetCountry("إيطاليا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg bg-slate-600 p-2'>إيطاليا
+                                }} className='border border-slate-400 rounded-lg bg-slate-600 p-2 cursor-pointer'>إيطاليا
                                 </button>
                                 <button onClick={() => {SetCountry("ألمانيا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg p-2'>ألمانيا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>ألمانيا
 
                                 </button>
                                 <button onClick={() => {SetCountry("روسيا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg p-2'>روسيا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>روسيا
 
                                 </button>
                                 <button onClick={() => {SetCountry("رمانيا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg p-2'>رمانيا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>رمانيا
 
                                 </button>
                                 <button onClick={() => {SetCountry("هنغاريا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg p-2'>هنغاريا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>هنغاريا
 
                                 </button>
                                 <button onClick={() => {SetCountry("تركيا")
                                                         SetIsCountry(!isCountry)
-                                }} className='border border-slate-400 rounded-lg p-2'>تركيا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>تركيا
 
                                 </button>
                           </div>}
             </button>
             
             <button  onClick={() => SetIsCategory(!isCategory)}
-             className="relative bg-slate-600 text-white border border-slate-400 rounded-lg px-4 ml-2
+             className="relative bg-slate-600 text-white border border-slate-400 rounded-lg px-4 ml-2 cursor-pointer
                                   dark:bg-slate-600 dark:text-slate-100 dark:border-slate-700 ">
                 {category}
 
@@ -65,16 +65,16 @@ function FiltersButtons() {
                                                 dark:bg-slate-600'>
                                 <button onClick={() => {SetCategory("IT")
                                                         SetIsCategory(!isCategory)
-                                }} className='border border-slate-400 rounded-lg p-2'>IT
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>IT
 
                                 </button>
                                 <button onClick={() => {SetCategory("إقتصاد")
                                                         SetIsCategory(!isCategory)
-                                }} className='border border-slate-400 rounded-lg p-2'>
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>
                                     إقتصاد</button>
                                 <button onClick={() => {SetCategory("العمارة")
                                                         SetIsCategory(!isCategory)
-                                }} className='border border-slate-400 rounded-lg p-2'>العمارة
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>العمارة
 
                                 </button>
                                 <button onClick={() => {SetCategory("اللغات الأجنبية")
@@ -84,14 +84,14 @@ function FiltersButtons() {
                                 </button>
                                 <button onClick={() => {SetCategory("العلوم")
                                                         SetIsCategory(!isCategory)
-                                }} className='border border-slate-400 rounded-lg p-2'>العلوم
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>العلوم
 
                                 </button>
                           </div>}
             </button>
             
             <button onClick={() => SetIsFinance(!isFinance)}
-                    className="relative bg-slate-600 text-white border border-slate-400 rounded-lg px-4 
+                    className="relative bg-slate-600 text-white border border-slate-400 rounded-lg px-4 cursor-pointer
                                   dark:bg-slate-600 dark:text-slate-100 dark:border-slate-700 ">
                 {finance}
 
@@ -99,24 +99,24 @@ function FiltersButtons() {
                                                 dark:bg-slate-600'>
                                 <button onClick={() => {SetFinance("ممولة بالكامل")
                                                         SetIsFinance(!isFinance)
-                                }} className='border border-slate-400 rounded-lg p-2'>ممولة بالكامل
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>ممولة بالكامل
 
                                 </button>
                                 <button onClick={() => {SetFinance("ممولة جزئيا")
                                                         SetIsFinance(!isFinance)
-                                }} className='border border-slate-400 rounded-lg p-2'>ممولة جزئيا
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>ممولة جزئيا
 
                                 </button>
                                 <button onClick={() => {SetFinance("غير ممولة")
                                                         SetIsFinance(!isFinance)
-                                }} className='border border-slate-400 rounded-lg p-2'>غير ممولة
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>غير ممولة
 
                                 </button>
                           </div>}
             </button>
             
             <button onClick={() => SetIsDegree(!isDegree)}
-                    className="relative bg-slate-600  text-white border border-slate-400 rounded-lg px-4 py-2
+                    className="relative bg-slate-600  text-white border border-slate-400 rounded-lg px-4 py-2 cursor-pointer
                                   dark:bg-slate-600 dark:text-slate-100 dark:border-slate-700 ">
                 {degree}
 
@@ -124,22 +124,22 @@ function FiltersButtons() {
                                                 dark:bg-slate-600'>
                                 <button onClick={() => {SetDegree("ثانوية عامة")
                                                         SetIsDegree(!isDegree)
-                                }} className='border border-slate-400 rounded-lg p-2'>ثانوية عامة
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>ثانوية عامة
 
                                 </button>
                                 <button onClick={() => {SetDegree("بكالوريوس")
                                                         SetIsDegree(!isDegree)
-                                }} className='border border-slate-400 rounded-lg p-2'>بكالوريوس
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>بكالوريوس
 
                                 </button>
                                 <button onClick={() => {SetDegree("ماجستير")
                                                         SetIsDegree(!isDegree)
-                                }} className='border border-slate-400 rounded-lg p-2'>ماجستير
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>ماجستير
 
                                 </button>
                                 <button onClick={() => {SetDegree("دكتوراه")
                                                         SetIsDegree(!isDegree)
-                                }} className='border border-slate-400 rounded-lg p-2'>دكتوراه
+                                }} className='border border-slate-400 rounded-lg p-2 cursor-pointer'>دكتوراه
 
                                 </button>
 
