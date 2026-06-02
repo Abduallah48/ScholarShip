@@ -3,8 +3,8 @@ import Home from "./Home.jsx";
 //import Card from "./Card.jsx";
 //import FiltersButtons from "./FiltersButtons";
 import Footer from './Footer.jsx';
-import lightLogo from "../assets/photo_2026-05-24_00-29-45.jpg";
-import darkLogo from "../assets/photo_2026-05-24_00-29-49.jpg";
+import darkLogo from "../assets/photo_2026-06-02_11-38-56-removebg-preview (1).png";
+import lightLogo from "../assets/photo_2026-06-02_11-38-53-removebg-preview.png";
 import Dashboard from "./Dashboard.jsx";
 import DetailsPage from "./DetailsPage.jsx";
 
@@ -27,7 +27,7 @@ function App() {
             </div>
 
             {/* <Home /> */}
-            {/* <Dashboard /> */}
+            <Dashboard />
             <DetailsPage/>
             <Footer />
 

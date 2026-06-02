@@ -59,6 +59,22 @@ const Dashboard = () => {
                     صفحة الأدمن :
                 </h1>
 
+                <form>
+                <InputField
+                        label="البلد :"
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                    <InputField
+                        label="المدينة :"
+                        id="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                        className="justify-between"
+                    />
+                </form>
+                <h2 className="">بيانات المنحة المراد اضافتها :</h2>
                 <form
                     className="grid lg:grid-cols-2 gap-x-6 xl:gap-x-14 gap-y-8 text-lg md:text-xl"
                     onSubmit={handleSubmit}
@@ -70,7 +86,7 @@ const Dashboard = () => {
                         onChange={handleChange}
                     />
                     <InputField
-                        label="البلد :"
+                        label="بلد المنحة :"
                         id="country"
                         value={formData.country}
                         onChange={handleChange}

@@ -5,10 +5,7 @@ import FiltersButtons from "./FiltersButtons.jsx";
 import ScholarshipSection from './ScholarshipSection.jsx';
 import Hero from './Hero.jsx';
 import About from "./About.jsx";
-// import "@fontsource/tajawal/400.css";
-// import "@fontsource/tajawal/500.css";
-// import "@fontsource/tajawal/700.css";
-// import "@fontsource/tajawal/800.css";
+
 
 
 
