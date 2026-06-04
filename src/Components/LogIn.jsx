@@ -15,7 +15,7 @@ function LogIn({logInClick, SetLogInClick}) {
                     <input type = "password" placeholder="كلمة المرور" className="flex  border border-indigo-400 px-4 py-2 bg-indigo-200 text-indigo-950 text-lg rounded-md "/>
                     <button type="submit" className="bg-indigo-600 px-4 py-2 rounded-2xl text-indigo-50 font-bold text-lg cursor-pointer hover:bg-indigo-700 transition-colors">تسجيل الدخول</button>
                     <div className="flex flex-row-reverse justify-center items-center gap-2">
-                        <p className="text-lg text-center text-indigo-600 mb-8 font-bold">ليس لديك حساب؟</p>
+                        <p className="text-lg text-center text-indigo-600 mb-8 font-bold pt-6">ليس لديك حساب؟</p>
                         <button onClick={goToSignUp} className="bg-indigo-600 px-4 py-2 rounded-2xl text-indigo-50 font-bold text-lg cursor-pointer hover:bg-indigo-700 transition-colors">قم بأنشاء حساب جديد</button>
                     </div>
 

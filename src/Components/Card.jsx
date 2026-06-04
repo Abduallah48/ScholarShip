@@ -1,7 +1,12 @@
 //import React, {useState, useEffect} from "react";
 //import photo from '../assets/messi.png';
 
+import { useNavigate } from "react-router-dom";
+import { useTokenStore } from "../Store/token-store";
+
 function Card({scholarship}) {
+    const token = useTokenStore((state) => state.token);
+    const navigate = useNavigate();
 
     return(
         <div key={scholarship.id} className='flex items-center justify-center'>
@@ -31,8 +36,10 @@ function Card({scholarship}) {
                 </span>
             </div>
             <div className='flex gap-4 justify-end'>
-                <button className="bg-indigo-500 font-semibold text-white rounded-2xl px-4 py-2 cursor-pointer shadow-xl/20  hover:bg-indigo-600 transition-all duration-300">عرض تفاصيل المنحة </button>
-                <button className="bg-indigo-600 font-semibold text-slate-100 rounded-2xl px-4 py-2 cursor-pointer shadow-xl/20 hover:bg-indigo-700 transition-all duration-300">حفظ</button>
+                <button className="bg-indigo-500 font-semibold text-white rounded-2xl px-4 py-2 cursor-pointer shadow-xl/20  hover:bg-indigo-600 transition-all duration-300" onClick={() => navigate('/detailsPage')}>
+                    عرض تفاصيل المنحة
+                </button>
+                {token && <button className="bg-indigo-600 font-semibold text-slate-100 rounded-2xl px-4 py-2 cursor-pointer shadow-xl/20 hover:bg-indigo-700 transition-all duration-300">حفظ</button>}
             </div>
             <span className='text-lg text-red-600 font-semibold '>{scholarship.start_status}  </span>
         </div>

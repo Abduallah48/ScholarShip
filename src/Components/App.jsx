@@ -3,6 +3,10 @@ import Home from "./Home.jsx";
 //import Card from "./Card.jsx";
 //import FiltersButtons from "./FiltersButtons";
 import Footer from './Footer.jsx';
+import { Route, Routes } from "react-router-dom";
+import DetailsPage from "./DetailsPage.jsx";
+import Dashboard from "./Dashboard.jsx";
+import Favoraites from "./favotaites.jsx";
 
 
 function App() {
@@ -19,10 +23,15 @@ return(
             <div className="fixed top-20 left-0 right-0 z-50  md:top-0 ">
                 <Nav />
             </div>
-
-            <Home />
+            <Routes>
+                <Route path="/" element={<Home />} ></Route>
+                <Route path="/detailsPage" element={<DetailsPage />} ></Route>
+                <Route path="/dashboard" element={<Dashboard />} ></Route>
+                <Route path="/favoraites" element={<Favoraites />}></Route>
+            </Routes>
+           
             <Footer />
-
+           
 
 
         </>

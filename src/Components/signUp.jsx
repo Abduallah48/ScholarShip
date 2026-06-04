@@ -1,6 +1,8 @@
 import {useState} from "react";
+import { useTokenStore } from "../Store/token-store";
 
 function SignUp() {
+    const login = useTokenStore((state) => state.login);
     const [name, SetName] = useState("");
     const [email, SetEmail] = useState("");
     const [password, SetPassword] = useState("");
@@ -32,8 +34,7 @@ function SignUp() {
             if(res.ok) {
                 const data = await res.json();
                 if(data.data && data.data.token) {
-                    localStorage.setItem("auth_token", data.data.token)
-                    localStorage.setItem("user", JSON.stringify(data.data.user))
+                    login(data.data.token, data.data.user, data.data.user.role, data.data.user.name)
                 }
                 console.log("Account created succefuly", data)
             }

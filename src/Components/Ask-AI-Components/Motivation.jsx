@@ -6,6 +6,7 @@ const MotSteps = [
     {id: "scholarship", placeholder: "أدخل اسم المنحة"},
     {id: "university", placeholder: "أدخل اسم الجامعة"},
     {id: "specialization", placeholder: "أدخل الاختصاص"},
+    {id: "country", placeholder: "أدخل اسم البلد"}
 ];
 
 function Motivation({onGoBackDoc}) {
@@ -15,7 +16,8 @@ function Motivation({onGoBackDoc}) {
         age: "",
         scholarship: "",
         university: "",
-        specialization: ""
+        specialization: "",
+        country: ""
     });
 
     const currentStep = MotSteps[motStepIndex];
