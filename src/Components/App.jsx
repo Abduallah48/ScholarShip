@@ -6,12 +6,14 @@ import Footer from './Footer.jsx';
 import { Route, Routes } from "react-router-dom";
 import DetailsPage from "./DetailsPage.jsx";
 import Dashboard from "./Dashboard/Dashboard.jsx";
+import Favoraites from "./favotaites.jsx";
+
 
 
 function App() {
-return(
-    <>
-    <div className="fixed top-0 left-0 right-0 z-50 bg-slate-50 text-2xl text-slate-950 flex items-center justify-center py-6
+    return (
+        <>
+            <div className="fixed top-0 left-0 right-0 z-50 bg-slate-50 text-2xl text-slate-950 flex items-center justify-center py-6
                             md:hidden
                             lg:hidden
                             dark:bg-slate-800 dark:text-slate-50">
@@ -23,15 +25,16 @@ return(
                 <Nav />
             </div>
             <Routes>
-                <Route path="/" element={<Dashboard/>}></Route>
+                <Route path="/" element={<Dashboard />}></Route>
                 {/* <Route path="/" element={<DetailsPage/>}></Route> */}
                 {/* <Route path="/" element={<Home />}></Route> */}
                 {/* detailsPage */}
+                <Route path="/favoraites" element={<Favoraites />}></Route>
+
             </Routes>
 
             {/* <Home /> */}
             <Footer />
-
 
 
         </>
