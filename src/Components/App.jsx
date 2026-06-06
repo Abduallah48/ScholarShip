@@ -3,6 +3,9 @@ import Home from "./Home.jsx";
 //import Card from "./Card.jsx";
 //import FiltersButtons from "./FiltersButtons";
 import Footer from './Footer.jsx';
+import { Route, Routes } from "react-router-dom";
+import DetailsPage from "./DetailsPage.jsx";
+import Dashboard from "./Dashboard/Dashboard.jsx";
 
 
 function App() {
@@ -19,8 +22,14 @@ return(
             <div className="fixed top-20 left-0 right-0 z-50  md:top-0 ">
                 <Nav />
             </div>
+            <Routes>
+                <Route path="/" element={<Dashboard/>}></Route>
+                {/* <Route path="/" element={<DetailsPage/>}></Route> */}
+                {/* <Route path="/" element={<Home />}></Route> */}
+                {/* detailsPage */}
+            </Routes>
 
-            <Home />
+            {/* <Home /> */}
             <Footer />
 
 

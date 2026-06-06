@@ -1,5 +1,5 @@
 
-const InputField = ({ label, id, type = "text", value, onChange, isTextArea, rows, defaultValue, className = "" }) => {
+const InputField = ({ label, id,name, type = "text", value, onChange, isTextArea, rows, defaultValue, className = "" }) => {
     const inputStyles = "flex-grow border dark:border-gray-300 rounded-[10px] dark:bg-slate-700 dark:text-white py-2 px-4";
 
     return (
@@ -11,7 +11,7 @@ const InputField = ({ label, id, type = "text", value, onChange, isTextArea, row
                 <textarea
                     className={inputStyles}
                     id={id}
-                    name={id}
+                    name={name || id}
                     rows={rows || "5"}
                     value={value}
                     onChange={onChange}
@@ -21,7 +21,7 @@ const InputField = ({ label, id, type = "text", value, onChange, isTextArea, row
                 <input
                     className={inputStyles}
                     id={id}
-                    name={id}
+                    name={name || id}
                     type={type}
                     value={value}
                     onChange={onChange}

@@ -5,26 +5,19 @@ import FiltersButtons from "./FiltersButtons.jsx";
 import ScholarshipSection from './ScholarshipSection.jsx';
 import Hero from './Hero.jsx';
 import About from "./About.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 function Home() {
+
     return(
         <div  className="flex flex-col   bg-purple-100 gap-8 
-                         md:mx-auto md:max-w-5xl
-                         lg:mx-auto lg:max-w-7xl
-                         dark:bg-slate-950">
-            {/* <div className="fixed top-0 left-0 right-0 z-50 bg-slate-50 text-2xl text-slate-950 flex items-center justify-center py-6
-                             md:hidden
-                             lg:hidden
-                             dark:bg-slate-800 dark:text-slate-50">
-                <h2 className="">Cummute</h2>
-            </div>
-            <div className="fixed top-20 left-0 right-0 z-50  md:top-0 ">
-                <Nav />
-            </div> */}
+                        md:mx-auto md:max-w-5xl
+                        lg:mx-auto lg:max-w-7xl
+                        dark:bg-slate-950">
             
             <Hero />
             

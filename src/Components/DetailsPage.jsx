@@ -2,7 +2,6 @@ import ButtonStyle from "./ButtonStyle";
 import DetailsCard from "./DetailsCard";
 import ScholarshipSection from "./SchoolarshipSection";
 import schoolarShip from "../assets/Property,home-Rustic.jpg";
-import germanyFlag from "../assets/germany.png";
 import clock from "../assets/clock.png";
 import finance from "../assets/financing1.png";
 import flag from "../assets/flage-icon.png";
@@ -11,11 +10,6 @@ import graduation from "../assets/graduation-hat2.png";
 import age from "../assets/age-icon.png";
 import specialization from "../assets/notebook.png";
 import language from "../assets/language-icon.png";
-
-// import "@fontsource/tajawal/400.css";
-// import "@fontsource/tajawal/500.css";
-// import "@fontsource/tajawal/700.css";
-// import "@fontsource/tajawal/800.css";
 
 const DetailsPage = () => {
     return (
@@ -37,7 +31,7 @@ const DetailsPage = () => {
                     </div>
                     <div className="w-full grid grid-cols-1 gap-2 sm:grid-cols-2 xl:flex-1 order-4 xl:order-2">
                         <DetailsCard
-                            img={germanyFlag}
+                            img={flag}
                             mainText="البلد"
                             secondaryText="المدينة"
                         />
@@ -72,7 +66,7 @@ const DetailsPage = () => {
                     vel unde rerum? Eaque ipsa totam voluptas qui laboriosam natus tempore
                     incidunt.
                 </h3>
-                <ButtonStyle bgColor="#69ffd9" text="انتقل للمنحة" />
+                <ButtonStyle text="انتقل للمنحة" />
                 <section className="mt-8">
                     <h2 className="text-2xl dark:text-white w-full text-neutral-800 lg:py-[30px] p-[20px] font-bold text-[30px] md:text-[40px]">معايير التقديم :</h2>
                     <div className="flex flex-col gap-2">
@@ -99,8 +93,8 @@ const DetailsPage = () => {
                     </div>
                 </section>
                 <div className="flex flex-col sm:flex-row justify-center gap-3 my-10">
-                    <ButtonStyle bgColor="#69ffd9" text="انتقل للمنحة" />
-                    <ButtonStyle bgColor="#69ffd9" text="حفظ" />
+                    <ButtonStyle text="انتقل للمنحة" />
+                    <ButtonStyle text="حفظ" />
                 </div>
                 <h2 className="text-2xl dark:text-white w-full text-neutral-800 lg:py-[30px] p-[20px] font-bold text-[30px] md:text-[40px]">منح مشابهة :</h2>
                 <ScholarshipSection />
