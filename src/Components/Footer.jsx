@@ -1,27 +1,34 @@
+import { useFiltersStore } from "../Store/filters-store";
+import {Link} from "react-router-dom";
 
 function Footer() {
+    const setCountry = useFiltersStore((state) => state.setCountry);
     return(
-        <div id="contact-us" className="grid grid-cols-2 pb-20 bg-purple-100 p-4
+        <div id="contact-us" className="grid grid-cols-2 pb-20 bg-purple-100 p-4 gap-2
                                         md:max-w-5xl md:mx-auto
                                         lg:max-w-7xl lg:mx-auto
                                         dark:bg-slate-950 dark:text-white">
             <div className="flex flex-col gap-2 items-center">
-                <a href="#" className="text-lg text-slate-950
+                <Link onClick={() => setCountry("إيطاليا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح ايطاليا
-                </a>
-                <a href="#" className="text-lg text-slate-950
+                ">منح إيطاليا
+                </Link>
+                <Link onClick={() => setCountry("ألمانيا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح المانيا </a>
-                <a href="#" className="text-lg text-slate-950
+                ">منح ألمانيا </Link>
+                <Link onClick={() => setCountry("رمانيا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح رمانيا</a>
-                <a href="#" className="text-lg text-slate-950
+                ">منح رمانيا</Link>
+                <Link onClick={() => setCountry("هنغاريا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح هنغاريا</a>
-                <a href="#" className="text-lg text-slate-950
+                ">منح هنغاريا</Link>
+                <Link onClick={() => setCountry("روسيا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح روسيا</a>
+                ">منح روسيا</Link>
+            
+                <Link onClick={() => setCountry("تركيا")} to="/" className="text-lg text-slate-950
+                                        dark:text-slate-50
+                ">منح تركيا</Link>
             </div>
             <div className="flex flex-col gap-4 items-center">
                 <p className="text-lg text-slate-950 font-bold
