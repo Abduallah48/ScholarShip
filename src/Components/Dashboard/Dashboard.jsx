@@ -5,7 +5,11 @@ import CategoryForm from "./CategoryForm";
 import SpecForm from "./SpecForm";
 import ScholarshipForm from "./ScholarshipForm";
 import ReviewForm from "./ReviewForm";
+import ButtonStyle from "../ButtonStyle";
+
 const Dashboard = () => {
+    const [activeTab, setActiveTab] = useState("tables");
+
     const [countryData, setCountryData] = useState({ countryNum: "", rate: "" });
     const [cityLinkData, setCityLinkData] = useState({
         cityName: "",
@@ -19,8 +23,10 @@ const Dashboard = () => {
         city: "",
         degree: "",
         finance: "",
+        donor:"",
         field: "",
         specialization: "",
+        beginDate:"",
         finalDate: "",
         desc: "",
         nationalities: "لا يشترط جنسية",
@@ -89,55 +95,83 @@ const Dashboard = () => {
         <>
             <div
                 dir="rtl"
-                className="bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] !pt-[5.3rem] !px-[20px]"
+                className="min-h-screen mx-auto md:max-w-5xl lg:max-w-7xl bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] py-[5rem] px-[2rem]"
             >
-                <h1 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
+                <h1 className="text-[40px] md:text-[50px] dark:text-white font-bold mt-[80px] md:mt-0">
                     صفحة الأدمن :
                 </h1>
-
-                <CountryForm
-                    countryData={countryData}
-                    onChange={handleCountryChange}
-                    onSubmit={handleSubmitCountry}
-                />
-                <CityForm
-                    cityLinkData={cityLinkData}
-                    onChange={handleCityLinkChange}
-                    onSubmit={handleSubmitCity}
-                />
-                <CategoryForm
-                    categoryData={categoryData}
-                    onChange={handleCategoryChange}
-                    onSubmit={handleSubmitCategory}
-                />
-                <SpecForm
-                    specData={specData}
-                    onChange={handleSpecChange}
-                    onSubmit={handleSubmitSpecialization}
-                />
-
-                <h2 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
-                    بيانات المنحة المراد اضافتها :
+                <h2 className="text-[30px] md:text-[40px] dark:text-white font-bold">
+                    لإضافة :
                 </h2>
-                <ScholarshipForm
-                    scholarshipData={scholarshipData}
-                    onChange={handleScholarshipChange}
-                    onSubmit={handleSubmitScholarship}
-                />
-            </div>
 
-            <div
-                dir="rtl"
-                className="bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] pb-[5.3rem] !px-[20px]"
-            >
-                <h1 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
-                    لإضافة تجربة طالب بمنحة ما :
-                </h1>
-                <ReviewForm
-                    reviewData={reviewData}
-                    onChange={handleReviewChange}
-                    onSubmit={handleReviewSubmit}
-                />
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <ButtonStyle
+                        onClick={() => setActiveTab("tables")}
+                        text="بيانات الجداول"
+                        className="px-[30px]"
+                    />
+                    <ButtonStyle
+                        onClick={() => setActiveTab("scholarship")}
+                        text="منحة"
+                    />
+                    <ButtonStyle
+                        onClick={() => setActiveTab("review")}
+                        text=" تجربة طالب"
+                        className="px-[30px]"
+                    />
+                </div>
+
+                {activeTab === "tables" && (
+                    <div className="flex flex-col gap-6">
+                        <h2 className="!text-[30px] font-bold dark:text-white">إضافة بيانات الجداول الأساسية:</h2>
+                        <CountryForm
+                            countryData={countryData}
+                            onChange={handleCountryChange}
+                            onSubmit={handleSubmitCountry}
+                        />
+                        <CityForm
+                            cityLinkData={cityLinkData}
+                            onChange={handleCityLinkChange}
+                            onSubmit={handleSubmitCity}
+                        />
+                        <CategoryForm
+                            categoryData={categoryData}
+                            onChange={handleCategoryChange}
+                            onSubmit={handleSubmitCategory}
+                        />
+                        <SpecForm
+                            specData={specData}
+                            onChange={handleSpecChange}
+                            onSubmit={handleSubmitSpecialization}
+                        />
+                    </div>
+                )}
+
+                {activeTab === "scholarship" && (
+                    <>
+                        <h2 className="!text-[30px] font-bold dark:text-white">
+                            بيانات المنحة المراد اضافتها :
+                        </h2>
+                        <ScholarshipForm
+                            scholarshipData={scholarshipData}
+                            onChange={handleScholarshipChange}
+                            onSubmit={handleSubmitScholarship}
+                        />
+                    </>
+                )}
+                {activeTab === "review" && (
+                    <>
+                        <h1 className="!text-[30px] md:text-[50px] xl:text-[70px] font-bold dark:text-white">
+                            لإضافة تجربة طالب بمنحة ما :
+                        </h1>
+                        <ReviewForm
+                            reviewData={reviewData}
+                            onChange={handleReviewChange}
+                            onSubmit={handleReviewSubmit}
+                        />
+                    </>
+                )}
+
             </div>
         </>
     );

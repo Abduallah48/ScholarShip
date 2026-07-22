@@ -25,11 +25,10 @@ function App() {
                 <Nav />
             </div>
             <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+                {/* <Route path="/" element={<Dashboard />}></Route> */}
                 {/* <Route path="/" element={<DetailsPage/>}></Route> */}
-                {/* <Route path="/" element={<Home />}></Route> */}
-                {/* detailsPage */}
-                <Route path="/favoraites" element={<Favoraites />}></Route>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/detailsPage/:id" element={<DetailsPage />}></Route>                <Route path="/favoraites" element={<Favoraites />}></Route>
 
             </Routes>
 

@@ -47,6 +47,14 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
                 className="justify-between"
             />
             <InputField
+                label="الجهة المانحة :"
+                id="donor"
+                name="donor"
+                value={scholarshipData.donor}
+                onChange={onChange}
+                className="justify-between"
+            />
+            <InputField
                 label="الفرع العام :"
                 id="field"
                 name="field"
@@ -59,6 +67,15 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
                 id="specialization"
                 name="specialization"
                 value={scholarshipData.specialization}
+                onChange={onChange}
+                className="justify-between"
+            />
+            <InputField
+                label="تاريخ بداية التقديم :"
+                id="beginDate"
+                name="beginDate"
+                type="date"
+                value={scholarshipData.beginDate}
                 onChange={onChange}
                 className="justify-between"
             />
@@ -154,6 +171,7 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
                 name="age"
                 value={scholarshipData.age}
                 onChange={onChange}
+                className="md:items-center"
             />
             <InputField
                 label="لغة كورس المنحة :"
