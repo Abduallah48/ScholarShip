@@ -18,6 +18,7 @@ const DetailsPage = () => {
     const { id } = useParams();
     const [scholarship, setScholarship] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const getScholarshipDetails = async () => {
@@ -34,6 +35,7 @@ const DetailsPage = () => {
 
         getScholarshipDetails();
     }, [id]);
+
     if (loading) {
         return <div className="text-center p-10 dark:text-white">جاري تحميل تفاصيل المنحة...</div>;
     }
@@ -43,7 +45,7 @@ const DetailsPage = () => {
     }
 
     return (
-        <main dir="rtl" className="bg-purple-100 mx-auto md:max-w-5xl lg:max-w-7xl dark:bg-slate-950">
+        <main dir="rtl" className="relative bg-purple-100 mx-auto md:max-w-5xl lg:max-w-7xl dark:bg-slate-950">
             <div className="p-4 lg:m-[4rem] lg:mx-[25px] 2xl:mx-[50px]">
                 <h1 className="dark:text-white text-[35px] md:text-[45px] xl:text-[55px] font-bold text-neutral-800 md:pt-[90px] lg:pt-[10px] pt-[170px]">
                     {scholarship.scholarship_name}
@@ -80,7 +82,6 @@ const DetailsPage = () => {
                             secondaryText={scholarship.category.category_name}
                         />
                         <DetailsCard
-                            // className="col-span-full"
                             img={clock}
                             mainText="تاريخ انتهاء التقديم"
                             secondaryText={scholarship.finished_date}
@@ -91,14 +92,13 @@ const DetailsPage = () => {
                             className="md:gap-7" />
                     </div>
                 </div>
-                <h3 className="dark:text-white text-[17px]  lg:text-[30px] mx-[20px] text-center md:text-start md:py-[15px] py-[30px]">
+                <h3 className="dark:text-white text-[17px] lg:text-[30px] mx-[20px] text-center md:text-start md:py-[15px] py-[30px]">
                     {scholarship.scholarship_description}
                 </h3>
                 <ButtonStyle text="انتقل للمنحة" />
                 <section className="mt-8">
                     <h2 className="text-2xl dark:text-white w-full text-neutral-800 lg:py-[30px] p-[20px] font-bold text-[30px] md:text-[40px]">معايير التقديم :</h2>
                     <div className="flex flex-col gap-2">
-
                         <DetailsCard img={flag}
                             mainText="الجنسية"
                             secondaryText={scholarship.application_criteria?.[0]?.value || "لا يشترط جنسية معينة"}
@@ -121,10 +121,38 @@ const DetailsPage = () => {
                 <div className="flex flex-col sm:flex-row justify-center gap-3 my-10">
                     <ButtonStyle text="انتقل للمنحة" />
                     <ButtonStyle text="حفظ" />
+                    <ButtonStyle onClick={() => setIsModalOpen(true)} text="طريقة التقديم" />
                 </div>
                 <h2 className="text-2xl dark:text-white w-full text-neutral-800 lg:py-[30px] p-[20px] font-bold text-[30px] md:text-[40px]">منح مشابهة :</h2>
-                <ScholarshipSection />
+
+                <ScholarshipSection currentScholarshipId={id} />
             </div>
+
+            {/* واجهة طريقة التقديم */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
+                    <div className="bg-white h-[600px] dark:bg-slate-900 p-6 rounded-2xl w-full max-w-2xl flex flex-col justify-between shadow-2xl">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-indigo-700 pb-2">
+                                طريقة التقديم :
+                            </h2>
+
+                            <div className="dark:text-slate-200 text-xl md:text-2xl">
+                                {scholarship.how_to_apply?.how_to_apply_description || "لا تتوفر تفاصيل إضافية لطريقة التقديم."}                            </div>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-gray-100 dark:border-slate-800 flex justify-between items-center">
+                            <ButtonStyle
+                                text="انتقل للمنحة"
+                            />
+                            <ButtonStyle
+                                text="إغلاق"
+                                onClick={() => setIsModalOpen(false)}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 };
