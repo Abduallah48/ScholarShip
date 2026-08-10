@@ -5,10 +5,13 @@ import Chat from "./Chat.jsx";
 
 
 function AskAI({askAIClick, SetAskAIClick}) {
+    
      const [screenAI, SetScreenAI] = useState("Home");
      const goTODocuments = () => SetScreenAI("Documents");
      const goTOChat = () => SetScreenAI("Chat");
      const gotOHome = () => SetScreenAI("Home");
+
+     
     
     return(
         <div className="bg-black/50 fixed inset-0 flex flex-col  gap-12 ">

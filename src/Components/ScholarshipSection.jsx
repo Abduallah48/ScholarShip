@@ -1,8 +1,10 @@
 import Card from "./Card.jsx";
 import {useState, useEffect} from "react";
 import { useFiltersStore } from "../Store/filters-store.js";
+import { useTokenStore } from "../Store/token-store.js";
 
 function ScholarshipSection() {
+    const token = useTokenStore((state) => state.token);
     const currentPage = useFiltersStore((state) => state.currentPage);
     const setPage = useFiltersStore((state) => state.setPage);
     const selectedCountry = useFiltersStore((state) => state.selectedCountry);
@@ -35,7 +37,14 @@ function ScholarshipSection() {
                 if (selectedDegree) url.searchParams.append("degree", selectedDegree);
                 if (selectedFinance) url.searchParams.append("finance", selectedFinance);
 
-            const res = await fetch(url);
+            const res = await fetch(url,{
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "authorization": `Bearer ${token}`
+                }
+            });
 
             const data = await res.json();
             
