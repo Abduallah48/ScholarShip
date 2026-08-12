@@ -25,6 +25,7 @@ const InputField = ({ label, id,name, type = "text", value, onChange, isTextArea
                     type={type}
                     value={value}
                     onChange={onChange}
+                    required
                 />
             )}
         </div>
