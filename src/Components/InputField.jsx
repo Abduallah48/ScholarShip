@@ -4,7 +4,7 @@ const InputField = ({ label, id,name, type = "text", value, onChange, isTextArea
 
     return (
         <div className={`flex flex-col md:flex-row gap-2 xl:gap-4 ${className}`}>
-            <label className="dark:text-white text-[20px] md:text-[30px]" htmlFor={id}>
+            <label className=" dark:text-white text-[20px] md:text-[30px]" htmlFor={id}>
                 {label}
             </label>
             {isTextArea ? (
@@ -15,6 +15,7 @@ const InputField = ({ label, id,name, type = "text", value, onChange, isTextArea
                     rows={rows || "5"}
                     value={value}
                     onChange={onChange}
+                    required
                     defaultValue={defaultValue}
                 />
             ) : (
@@ -24,6 +25,8 @@ const InputField = ({ label, id,name, type = "text", value, onChange, isTextArea
                     name={name || id}
                     type={type}
                     value={value}
+                    // value={isNaN(value) || value === null || value === undefined ? "" : value}
+                    required
                     onChange={onChange}
                     required
                 />

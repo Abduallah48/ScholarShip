@@ -95,7 +95,7 @@ const DetailsPage = () => {
                 <h3 className="dark:text-white text-[17px] lg:text-[30px] mx-[20px] text-center md:text-start md:py-[15px] py-[30px]">
                     {scholarship.scholarship_description}
                 </h3>
-                <ButtonStyle text="انتقل للمنحة" />
+                {/* <ButtonStyle onClick={() => window.open(scholarship.scholarship_link, "_blank")} text="انتقل للمنحة" /> */}
                 <section className="mt-8">
                     <h2 className="text-2xl dark:text-white w-full text-neutral-800 lg:py-[30px] p-[20px] font-bold text-[30px] md:text-[40px]">معايير التقديم :</h2>
                     <div className="flex flex-col gap-2">
@@ -118,8 +118,8 @@ const DetailsPage = () => {
                             className2="" />
                     </div>
                 </section>
-                <div className="flex flex-col sm:flex-row justify-center gap-3 my-10">
-                    <ButtonStyle text="انتقل للمنحة" />
+                <div className="flex flex-col md:!flex-row justify-center gap-2 my-10">
+                    {/* <ButtonStyle onClick={() => window.open(scholarship.scholarship_link, "_blank")} text="انتقل للمنحة" /> */}
                     <ButtonStyle text="حفظ" />
                     <ButtonStyle onClick={() => setIsModalOpen(true)} text="طريقة التقديم" />
                 </div>
@@ -138,12 +138,14 @@ const DetailsPage = () => {
                             </h2>
 
                             <div className="dark:text-slate-200 text-xl md:text-2xl">
-                                {scholarship.how_to_apply?.how_to_apply_description || "لا تتوفر تفاصيل إضافية لطريقة التقديم."}                            </div>
+                                {scholarship.how_to_apply?.how_to_apply_description || "لا تتوفر تفاصيل إضافية لطريقة التقديم."}
+                            </div>
                         </div>
 
-                        <div className="mt-6 pt-4 border-gray-100 dark:border-slate-800 flex justify-between items-center">
+                        <div className="mt-6 pt-4 border-gray-100 dark:border-slate-800 flex flex-col gap-2 justify-between items-center sm:flex-row ">
                             <ButtonStyle
                                 text="انتقل للمنحة"
+                                onClick={() => window.open(scholarship.scholarship_link, "_blank")}
                             />
                             <ButtonStyle
                                 text="إغلاق"

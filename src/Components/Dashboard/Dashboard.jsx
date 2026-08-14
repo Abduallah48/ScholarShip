@@ -6,21 +6,23 @@ import SpecForm from "./SpecForm";
 import ScholarshipForm from "./ScholarshipForm";
 import ReviewForm from "./ReviewForm";
 import ButtonStyle from "../ButtonStyle";
-import ApplyCriteria from "./ApplyCriteria.jsx";
+import { useTokenStore } from "../../Store/token-store";
 
 const Dashboard = () => {
+    const token = useTokenStore((state) => state.token);
     const [activeTab, setActiveTab] = useState("tables");
 
+    // States
     const [countryData, setCountryData] = useState({
-        countryNum: "",
-        rate: ""
+        country_name: "",
+        country_rate: ""
     });
     const [cityLinkData, setCityLinkData] = useState({
-        cityName: "",
-        countryId: "",
+        city_name: "",
+        country_id: "",
     });
-    const [categoryData, setCategoryData] = useState({ categoryName: "" });
-    const [specData, setSpecData] = useState({ specName: "", categoryId: "" });
+    const [categoryData, setCategoryData] = useState({ category_name: "" });
+    const [specData, setSpecData] = useState({ specialization_name: "", category_id: "" });
     const [scholarshipData, setScholarshipData] = useState({
         scholarship_name: "",
         degree: "",
@@ -35,11 +37,12 @@ const Dashboard = () => {
         city_id: "",
         specialization_id: "",
         category_id: "",
-    });
-    const [applyCriteria, setApplyCriteria] = useState({
-        nationalities: "لا يشترط جنسية",
-        gender: "",
-        age: "",
+        application_criteria: {
+            nationalities: "",
+            age: "",
+            gender: ""
+        },
+        how_to_apply_description: ""
     });
     const [reviewData, setReviewData] = useState({
         scholarship_id: "",
@@ -66,17 +69,33 @@ const Dashboard = () => {
         setSpecData((prev) => ({ ...prev, [name]: value }));
     };
     const handleScholarshipChange = (e) => {
-        const { name, value } = e.target;
-        setScholarshipData((prev) => ({ ...prev, [name]: value }));
+        const { name, value, type } = e.target;
+        const criteriaFields = ["nationalities", "age", "gender"];
+    
+        const parsedValue = (type === "number" || name.endsWith("_id"))
+            ? (value === "" ? "" : Number(value))
+            : value;
+    
+        if (criteriaFields.includes(name)) {
+            setScholarshipData((prev) => ({
+                ...prev,
+                application_criteria: {
+                    ...prev.application_criteria,
+                    [name]: parsedValue,
+                },
+            }));
+        } else {
+            setScholarshipData((prev) => ({
+                ...prev,
+                [name]: parsedValue,
+            }));
+        }
     };
     const handleReviewChange = (e) => {
         const { name, value } = e.target;
         setReviewData((prev) => ({ ...prev, [name]: value }));
     };
-    const handleCriteriaChange = (e) => {
-        const { name, value } = e.target;
-        setApplyCriteria((prev) => ({ ...prev, [name]: value })); // تم التصحيح هنا
-    };
+    
 
     // Submit Functions
     const handleSubmitCountry = async (e) => {
@@ -87,6 +106,7 @@ const Dashboard = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(countryData),
             });
@@ -94,7 +114,7 @@ const Dashboard = () => {
 
             if (response.ok) {
                 alert("تمت إضافة البلد بنجاح");
-                setCountryData({ countryNum: "", rate: "" });
+                setCountryData({ country_name: "", country_rate: "" });
             } else {
                 alert(result.message);
             }
@@ -111,6 +131,7 @@ const Dashboard = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    Authorization: ` Bearer ${token}`
                 },
                 body: JSON.stringify(cityLinkData),
             });
@@ -118,7 +139,7 @@ const Dashboard = () => {
 
             if (response.ok) {
                 alert("تمت إضافة المدينة بنجاح");
-                setCityLinkData({ cityName: "", countryId: "" });
+                setCityLinkData({ city_name: "", country_id: "" });
             } else {
                 alert(result.message);
             }
@@ -135,6 +156,7 @@ const Dashboard = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(categoryData),
             });
@@ -142,7 +164,7 @@ const Dashboard = () => {
 
             if (response.ok) {
                 alert("تمت إضافة التصنيف بنجاح");
-                setCategoryData({ categoryName: "" });
+                setCategoryData({ category_name: "" });
             } else {
                 alert(result.message);
             }
@@ -159,6 +181,7 @@ const Dashboard = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(specData),
             });
@@ -166,7 +189,7 @@ const Dashboard = () => {
 
             if (response.ok) {
                 alert("تمت إضافة التخصص بنجاح");
-                setSpecData({ specName: "", categoryId: "" });
+                setSpecData({ specialization_name: "", category_id: "" });
             } else {
                 alert(result.message);
             }
@@ -174,36 +197,6 @@ const Dashboard = () => {
             console.error(error);
         }
     };
-
-//////////////////////////////////////////
-    const handleSubmitCriteria = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/scholarships", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: JSON.stringify(applyCriteria),
-            });
-            const result = await response.json();
-
-            if (response.ok) {
-                alert("تمت إضافة معايير المنحة بنجاح");
-                setApplyCriteria({
-                    nationalities: "لا يشترط جنسية",
-                    gender: "",
-                    age: "",
-                });
-            } else {
-                alert(result.message);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-////////////////////////
 
     const handleSubmitScholarship = async (e) => {
         e.preventDefault();
@@ -212,29 +205,14 @@ const Dashboard = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify(scholarshipData),
             });
             const result = await response.json();
-
             if (response.ok) {
                 alert("تمت إضافة المنحة بنجاح");
-                setScholarshipData({
-                    scholarship_name: "",
-                    degree: "",
-                    finance: "",
-                    scholarship_description: "",
-                    donar: "",
-                    start_date: "",
-                    finished_date: "",
-                    scholarship_language: "",
-                    scholarship_link: "",
-                    country_id: "",
-                    city_id: "",
-                    specialization_id: "",
-                    category_id: "",
-                });
             } else {
                 alert(result.message);
             }
@@ -243,25 +221,27 @@ const Dashboard = () => {
         }
     };
 
-    /////////////////////////////////////////////////////
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/scholarships", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: JSON.stringify(reviewData),
-            });
+            const response = await fetch(`http://127.0.0.1:8000/api/scholarships/${reviewData.scholarship_id}/reviews`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(reviewData),
+                });
             const result = await response.json();
 
             if (response.ok) {
                 alert("تمت إضافة تجربة الطالب بنجاح");
                 setReviewData({
-                    schoolarshipNum: "",
-                    schoolarshipStuName: "",
+                    scholarship_id: "",
+                    reviewer_name: "",
+                    rating: "",
                     review: "",
                 });
             } else {
@@ -271,8 +251,6 @@ const Dashboard = () => {
             console.error(error);
         }
     };
-    //////////////////////////////////////////////////
-
 
     return (
         <div
@@ -298,7 +276,7 @@ const Dashboard = () => {
                 />
                 <ButtonStyle
                     onClick={() => setActiveTab("review")}
-                    text=" تجربة طالب"
+                    text="تجربة طالب"
                     className="px-[30px]"
                 />
             </div>
@@ -333,21 +311,13 @@ const Dashboard = () => {
 
             {activeTab === "scholarship" && (
                 <>
-                    <h2 className="!text-[30px] font-bold dark:text-white">
+                    <h2 className="!text-[35px] font-bold dark:text-white">
                         بيانات المنحة المراد اضافتها :
                     </h2>
                     <ScholarshipForm
                         scholarshipData={scholarshipData}
                         onChange={handleScholarshipChange}
                         onSubmit={handleSubmitScholarship}
-                    />
-                    <h2 className="!text-[30px] font-bold dark:text-white">
-                        بيانات معايير التقديم :
-                    </h2>
-                    <ApplyCriteria
-                        applyCriteria={applyCriteria}
-                        onChange={handleCriteriaChange}
-                        onSubmit={handleSubmitCriteria}
                     />
                 </>
             )}
