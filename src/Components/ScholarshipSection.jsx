@@ -1,5 +1,5 @@
 import Card from "./Card.jsx";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useFiltersStore } from "../Store/filters-store.js";
 import { useTokenStore } from "../Store/token-store.js";
 
@@ -7,10 +7,9 @@ function ScholarshipSection() {
     const token = useTokenStore((state) => state.token);
     const currentPage = useFiltersStore((state) => state.currentPage);
     const setPage = useFiltersStore((state) => state.setPage);
-    const selectedCountry = useFiltersStore((state) => state.selectedCountry);
-    const selectedCategory = useFiltersStore((state) => state.selectedCategory);
-    const selectedDegree = useFiltersStore((state) => state.selectedDegree);
-    const selectedFinance = useFiltersStore((state) => state.selectedFinance);
+    
+    // We bring in the whole filters object from the store
+    const filters = useFiltersStore((state) => state.filters);
 
     const [scholarships, SetScholarships] = useState([]);
     const [isLoading, SetIsLoading] = useState(false);
@@ -19,7 +18,6 @@ function ScholarshipSection() {
 
     function handlePageChange(page) {
         setPage(page);
-
     }
 
     useEffect(() => {
@@ -27,87 +25,87 @@ function ScholarshipSection() {
             SetIsLoading(true);
             SetErrorMessage("");
 
-            try{
-            const url = new URL("http://127.0.0.1:8000/api/top-scholarships");
-                
+            try {
+                const url = new URL("http://127.0.0.1:8000/api/top-scholarships");
                 
                 url.searchParams.append("page", currentPage);
-                if (selectedCountry) url.searchParams.append("country", selectedCountry);
-                if (selectedCategory) url.searchParams.append("category", selectedCategory);
-                if (selectedDegree) url.searchParams.append("degree", selectedDegree);
-                if (selectedFinance) url.searchParams.append("finance", selectedFinance);
+                
+                // FIX: We must use the exact keys defined in filters-store.js (_id)
+                // The API parameter name is "country", but our variable is "filters.country_id"
+                if (filters.country_id) url.searchParams.append("country", filters.country_id);
+                if (filters.category_id) url.searchParams.append("category", filters.category_id);
+                if (filters.degree_id) url.searchParams.append("degree", filters.degree_id);
+                if (filters.finance_id) url.searchParams.append("finance", filters.finance_id);
 
-            const res = await fetch(url,{
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "authorization": `Bearer ${token}`
+                const res = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "authorization": `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                
+                if (res.ok) {
+                    SetIsLoading(false);
+                    SetScholarships(data.data.data);
+                    setLastPage(data.data.last_page);
+                } else {
+                    SetIsLoading(false);
+                    SetErrorMessage("something went wrong");
                 }
-            });
-
-            const data = await res.json();
-            
-            console.log(data)
-            if(res.ok) {
-                SetIsLoading(false);
-                SetScholarships(data.data.data);
-                setLastPage(data.data.last_page);
-            }
-            else {
-                SetIsLoading(false);
-                SetErrorMessage("something went wrong");
-            }}catch(error) {
+            } catch (error) {
                 SetIsLoading(false);
                 SetErrorMessage("فشل الاتصال بالخادم, " + error.message);
             }
         };
         getData();
-    },[currentPage, selectedCountry, selectedCategory, selectedDegree, selectedFinance])
+        
+        // FIX: The dependency array must also track the exact _id keys so it refetches when they change
+    }, [currentPage, filters.country_id, filters.category_id, filters.degree_id, filters.finance_id, token]);
 
 
-    return(
+    return (
         <div className="flex flex-col gap-6">
-
-                        <div className="grid gap-y-8 
-                                                md:grid-cols-2 
-                                                lg:grid-cols-3 ">
-                            {errorMesage && <p className="text-4xl font-bold text center text-indigo-950
-                                                        dark:text-indigo-white">{errorMesage}</p>}
-                            {isLoading && (
-                                        <div className="col-span-full flex flex-col items-center justify-center py-12 gap-4">
-                                            <div className="w-12 h-12 border-4 border-slate-400 border-t-indigo-600 rounded-full animate-spin
-                                                            dark:border-slate-200 dark:border-t-indigo-600"></div>       
-                                            <p className="text-xl font-semibold text-slate-600 dark:text-slate-300 animate-pulse">
-                                                 جاري تحميل المنح...
-                                            </p>
-                                        </div>
-)}
-                        
-                        {scholarships && scholarships.map((scholarship) => (
-                            <Card key={scholarship.id} scholarship={scholarship} />
-                        ))}
-                        </div>
-
-                       <div className="flex justify-center gap-4 mx-auto "  >
-                             {Array.from({length: lastPage}, (_, i) => (
-                            <button 
-                                key={i + 1} 
-                                onClick={() => handlePageChange(i + 1)} 
-                                className={`bg-indigo-300 text-md font-bold border-indigo-600 text-indigo-200 rounded-full p-2 hover:cursor-pointer
-                                              ${currentPage === i + 1
-                                                    ? "bg-indigo-600 text-indigo-100 border-indigo-50"
-                                                    : "bg-indigo-100 text-indigo-800 border-indigo-400" }`}
-                                                    
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
-                       </div>
-                        
+            <div className="grid gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+                {errorMesage && (
+                    <p className="text-4xl font-bold text center text-indigo-950 dark:text-indigo-white">
+                        {errorMesage}
+                    </p>
+                )}
+                
+                {isLoading && (
+                    <div className="col-span-full flex flex-col items-center justify-center py-12 gap-4">
+                        <div className="w-12 h-12 border-4 border-slate-400 border-t-indigo-600 rounded-full animate-spin dark:border-slate-200 dark:border-t-indigo-600"></div>       
+                        <p className="text-xl font-semibold text-slate-600 dark:text-slate-300 animate-pulse">
+                             جاري تحميل المنح...
+                        </p>
                     </div>
-    );
+                )}
+                
+                {scholarships && scholarships.map((scholarship) => (
+                    <Card key={scholarship.id} scholarship={scholarship} />
+                ))}
+            </div>
 
+            <div className="flex justify-center gap-4 mx-auto">
+                {Array.from({length: lastPage}, (_, i) => (
+                    <button 
+                        key={i + 1} 
+                        onClick={() => handlePageChange(i + 1)} 
+                        className={`bg-indigo-300 text-md font-bold border-indigo-600 text-indigo-200 rounded-full p-2 hover:cursor-pointer
+                                      ${currentPage === i + 1
+                                            ? "bg-indigo-600 text-indigo-100 border-indigo-50"
+                                            : "bg-indigo-100 text-indigo-800 border-indigo-400" }`}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
 }
 
-export default ScholarshipSection
+export default ScholarshipSection;

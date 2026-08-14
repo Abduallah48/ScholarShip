@@ -1,10 +1,13 @@
 // src/Hooks/useCountries.js
 import { useState, useEffect } from 'react';
+import { useTokenStore } from '../Store/token-store.js';
 
 const useCountries = () => {
     const [countries, setCountries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const token = useTokenStore((state) => state.token);
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -13,7 +16,8 @@ const useCountries = () => {
                 const response = await fetch('http://127.0.0.1:8000/api/countries', {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,
                     }
                 });
                 const data = await response.json();
@@ -34,7 +38,7 @@ const useCountries = () => {
         };
 
         fetchCountries();
-    }, []);
+    }, [token]);
 
     return { countries, loading, error };
 };

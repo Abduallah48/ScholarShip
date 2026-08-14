@@ -1,15 +1,17 @@
 import { useFiltersStore } from "../Store/filters-store";
 import {Link} from "react-router-dom";
+import useCountries from "../Hooks/useCountries";
 
 function Footer() {
     const setCountry = useFiltersStore((state) => state.setCountry);
+    const { countries } = useCountries();
     return(
         <div id="contact-us" className="grid grid-cols-2 pb-20 bg-purple-100 p-4 gap-2
                                         md:max-w-5xl md:mx-auto
                                         lg:max-w-7xl lg:mx-auto
                                         dark:bg-slate-950 dark:text-white">
             <div className="flex flex-col gap-2 items-center">
-                <Link onClick={() => setCountry("إيطاليا")} to="/" className="text-lg text-slate-950
+                {/* <Link onClick={() => setCountry("إيطاليا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
                 ">منح إيطاليا
                 </Link>
@@ -28,8 +30,26 @@ function Footer() {
             
                 <Link onClick={() => setCountry("تركيا")} to="/" className="text-lg text-slate-950
                                         dark:text-slate-50
-                ">منح تركيا</Link>
-            </div>
+                ">منح تركيا</Link>*/}
+                {countries.length > 0 ? (
+                    countries.map((country) => (
+                        <Link key={country.id} onClick={() => setCountry(country.id, country.country_name)} to="/" className="text-lg text-slate-950
+                                        dark:text-slate-50
+                        ">
+                            {country.country_name}
+                        </Link>
+                    ))
+                ) : (
+                     
+                        <p className="text-lg text-slate-950
+                                    dark:text-slate-50"
+                        >
+                            لا توجد دول متاحة
+                        </p> 
+                    
+                )}
+
+            </div> 
             <div className="flex flex-col gap-4 items-center">
                 <p className="text-lg text-slate-950 font-bold
                                 dark:text-slate-50

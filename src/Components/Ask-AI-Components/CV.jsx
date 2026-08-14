@@ -169,7 +169,6 @@ function CV({ onGoBackDoc }) {
 
             <div className="flex w-full mt-auto">
                 {CVResult !== null ? (
-                    // ✅ عرض زر التحميل عند وجود النتيجة
                     <div className="flex flex-row-reverse gap-4 w-full">
                         <a
                             href={CVResult}
@@ -186,7 +185,7 @@ function CV({ onGoBackDoc }) {
                         </button>
                     </div>
                 ) : (
-                    // ✅ عرض نموذج الإدخال
+                    
                     <div className="flex flex-row-reverse gap-4 w-full">
                         <input
                             type="text"
@@ -194,12 +193,12 @@ function CV({ onGoBackDoc }) {
                             onChange={CVFormHandler}
                             value={CVForm[currentStep.id] || ""}
                             className="flex flex-1 border border-indigo-400 px-4 py-2 bg-indigo-200 text-indigo-950 text-lg rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                            disabled={isLoading} // ✅ تعطيل أثناء التحميل
+                            disabled={isLoading} 
                         />
                         <button
                             onClick={nextStep}
                             className="bg-indigo-600 px-6 py-2 rounded-2xl text-indigo-50 font-bold text-lg cursor-pointer hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            disabled={isLoading} // ✅ تعطيل أثناء التحميل
+                            disabled={isLoading} 
                         >
                             {CVStepIndex === CVSteps.length - 1 ? "إنشاء" : "إرسال"}
                         </button>
@@ -207,7 +206,6 @@ function CV({ onGoBackDoc }) {
                 )}
             </div>
 
-            {/* ✅ عرض مؤشر التقدم */}
             <div className="flex justify-center gap-1 mt-2">
                 {CVSteps.map((_, index) => (
                     <div

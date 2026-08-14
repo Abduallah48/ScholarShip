@@ -6,7 +6,7 @@ import Footer from './Footer.jsx';
 import { Route, Routes } from "react-router-dom";
 import DetailsPage from "./DetailsPage.jsx";
 import Dashboard from "../Components/Dashboard/Dashboard.jsx";
-import Favoraites from "./favotaites.jsx";
+import Favoraites from "./Favoraites.jsx";
 import { useTokenStore } from "../Store/token-store.js";
 import { useNotificationStore } from "../Store/notification-store.js";
 import { useEffect } from "react";
@@ -45,6 +45,8 @@ return(
             </div>
             <Routes>
                 <Route path="/" element={<Home />} ></Route>
+                <Route path="/contact-us" element={<Home />} ></Route>
+                <Route path="/about" element={<Home />} ></Route>
                 <Route path="/detailsPage" element={<DetailsPage />} ></Route>
                 <Route path="/dashboard" element={<Dashboard />} ></Route>
                 <Route path="/favoraites" element={<Favoraites />}></Route>
