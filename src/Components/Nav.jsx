@@ -4,6 +4,7 @@ import LogIn from "./LogIn.jsx";
 import AskAI from "../Components/Ask-AI-Components/AskAI.jsx";
 import { Link } from "react-router-dom";
 import { useTokenStore } from "../Store/token-store.js";
+import Notification from "./Notification.jsx";
 
 
 function Nav() {
@@ -13,6 +14,7 @@ function Nav() {
         const logout = useTokenStore((state) => state.logout);
 
         const [listIsOpen, SetListIsOpen] = useState(false);
+        const [notificationListOpen, setNotificationListOpen] = useState(false);
 
         const [askAIClick, SetAskAIClick] = useState(false);
         const [logInClick, SetLogInClick] = useState(false);
@@ -61,12 +63,12 @@ function Nav() {
                                                 <span className="group-hover:hidden font-semibold text-md">{name}</span>
                                                 <span className="hidden group-hover:inline group-hover:text-bold group-hover:cursor-pointer group-hover:text-lg"> اضغط لتسجيل الخروج</span>
                                         </button>}
-                                        <a href="#home"
-                                                className="font-semibold text-md  px-6 ">الصفحة الرئيسية</a>
-                                        <a href="#about"
-                                                className="font-semibold text-md px-6 ">حول المنصة</a>
-                                        <a href="#contact-us"
-                                                className="font-semibold text-md px-6 ">تواصل معنا</a>
+                                        <Link to="/"
+                                                className="font-semibold text-md  px-6 ">الصفحة الرئيسية</Link>
+                                        <Link to="/about"
+                                                className="font-semibold text-md px-6 ">حول المنصة</Link>
+                                        <Link to="/contact-us"
+                                                className="font-semibold text-md px-6 ">تواصل معنا</Link>
                                         {role === "admin" && <Link to="/dashboard"
                                                 className="font-semibold text-md px-6 ">لوحة التحكم</Link>}
                                         {token !== null && <Link to="/favoraites"
@@ -86,10 +88,11 @@ function Nav() {
                                                 {logInClick && <LogIn logInClick={logInClick} SetLogInClick={SetLogInClick} />}
                                         </div>}
                                         {token !== null && <div className="flex">
-                                                <button className="font-bold text-xl bg-slate-400 rounded-full px-1 hover:bg-slate-500 cursor-pointer shadow-md shadow-slate-200
+                                                <button onClick={() => setNotificationListOpen(!notificationListOpen)} className="font-bold text-xl bg-slate-400 rounded-full px-1 hover:bg-slate-500 cursor-pointer shadow-md shadow-slate-200
                                                   dark:bg-slate-300 dark:hover:bg-slate-400 dark:shadow-slate-400">
                                                         🔔
                                                 </button>
+                                                {notificationListOpen && <Notification notificationListOpen={notificationListOpen} setNotificationListOpen={setNotificationListOpen} />}
                                         </div>}
                                 </div>
                                 <div className="flex md:hidden">{ToggleButton()}</div>

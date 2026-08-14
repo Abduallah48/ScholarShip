@@ -1,14 +1,13 @@
 // src/Hooks/useCountries.js
 import { useState, useEffect } from 'react';
-import { useTokenStore } from '../Store/token-store';
-
+import { useTokenStore } from '../Store/token-store.js';
 
 const useCountries = () => {
     const [countries, setCountries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const token = useTokenStore((state) => state.token)
+    const token = useTokenStore((state) => state.token);
 
     useEffect(() => {
         const fetchCountries = async () => {

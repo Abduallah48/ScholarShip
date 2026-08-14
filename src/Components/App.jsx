@@ -6,26 +6,29 @@ import Footer from './Footer.jsx';
 import { Route, Routes } from "react-router-dom";
 import DetailsPage from "./DetailsPage.jsx";
 import Dashboard from "../Components/Dashboard/Dashboard.jsx";
-import Favoraites from "./favotaites.jsx";
+import Favoraites from "./Favoraites.jsx";
 import { useTokenStore } from "../Store/token-store.js";
-// import { useNotificationStore } from "../Store/notification-store.js";
+import { useNotificationStore } from "../Store/notification-store.js";
 import { useEffect } from "react";
 //import toast from "react-hot-toast";
 
+
+
+
 function App() {
     const token = useTokenStore((state) => state.token);
-    // const connectSocket = useNotificationStore((state) => state.connectSocket);
-    // const disconnectSocket = useNotificationStore((state) => state.disconnectSocket);
+    const connectSocket = useNotificationStore((state) => state.connectSocket);
+    const disconnectSocket = useNotificationStore((state) => state.disconnectSocket);
 
-    // useEffect(() => {
-    //     if(token){
-    //         connectSocket(token);
-    //     }else{
-    //         disconnectSocket();
-    //     }
+    useEffect(() => {
+        if(token){
+            connectSocket(token);
+        }else{
+            disconnectSocket();
+        }
 
-    //     return () => disconnectSocket();
-    // }, [token, connectSocket, disconnectSocket]);
+        return () => disconnectSocket();
+    }, [token, connectSocket, disconnectSocket]);
 
 return(
     <>
@@ -41,14 +44,16 @@ return(
                 <Nav />
             </div>
             <Routes>
-
-                <Route path="/dashboard" element={<Dashboard />} ></Route>
-                {/* <Route path="/favoraites" element={<Favoraites />}></Route> */}
                 <Route path="/" element={<Home />} ></Route>
-            <Route path="/detailsPage/:id" element={<DetailsPage />} />
-
+                <Route path="/contact-us" element={<Home />} ></Route>
+                <Route path="/about" element={<Home />} ></Route>
+                <Route path="/detailsPage" element={<DetailsPage />} ></Route>
+                <Route path="/dashboard" element={<Dashboard />} ></Route>
+                <Route path="/favoraites" element={<Favoraites />}></Route>
             </Routes>
+           
             <Footer />
+           
             {/* <toaster /> */}
 
         </>
