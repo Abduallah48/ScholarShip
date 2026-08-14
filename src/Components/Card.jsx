@@ -9,6 +9,10 @@ function Card({
 }) {
     const token = useTokenStore((state) => state.token);
     const navigate = useNavigate();
+    const scholarshipID = scholarship.id;
+    
+    
+    const [isFavorite, setIsFavorite] = useState(scholarship.is_favorite || false);
 
     const [isFavorite, setIsFavorite] = useState(
         isFromFavorites || scholarship?.is_favorite === true

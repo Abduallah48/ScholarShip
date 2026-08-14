@@ -5,36 +5,53 @@ import CategoryForm from "./CategoryForm";
 import SpecForm from "./SpecForm";
 import ScholarshipForm from "./ScholarshipForm";
 import ReviewForm from "./ReviewForm";
+import ButtonStyle from "../ButtonStyle";
+import { useTokenStore } from "../../Store/token-store";
+
 const Dashboard = () => {
-    const [countryData, setCountryData] = useState({ countryNum: "", rate: "" });
-    const [cityLinkData, setCityLinkData] = useState({
-        cityName: "",
-        countryId: "",
+    const token = useTokenStore((state) => state.token);
+    const [activeTab, setActiveTab] = useState("tables");
+
+    // States
+    const [countryData, setCountryData] = useState({
+        country_name: "",
+        country_rate: ""
     });
-    const [categoryData, setCategoryData] = useState({ categoryName: "" });
-    const [specData, setSpecData] = useState({ specName: "", categoryId: "" });
+    const [cityLinkData, setCityLinkData] = useState({
+        city_name: "",
+        country_id: "",
+    });
+    const [categoryData, setCategoryData] = useState({ category_name: "" });
+    const [specData, setSpecData] = useState({ specialization_name: "", category_id: "" });
     const [scholarshipData, setScholarshipData] = useState({
-        name: "",
-        country: "",
-        city: "",
+        scholarship_name: "",
         degree: "",
         finance: "",
-        field: "",
-        specialization: "",
-        finalDate: "",
-        desc: "",
-        nationalities: "لا يشترط جنسية",
-        gender: "",
-        age: "",
-        schoolarshipLang: "",
-        schoolarshipURL: "",
+        scholarship_description: "",
+        donar: "",
+        start_date: "",
+        finished_date: "",
+        scholarship_language: "",
+        scholarship_link: "",
+        country_id: "",
+        city_id: "",
+        specialization_id: "",
+        category_id: "",
+        application_criteria: {
+            nationalities: "",
+            age: "",
+            gender: ""
+        },
+        how_to_apply_description: ""
     });
     const [reviewData, setReviewData] = useState({
-        schoolarshipNum: "",
-        schoolarshipStuName: "",
-        review: "",
+        scholarship_id: "",
+        reviewer_name: "",
+        rating: "",
+        review: ""
     });
 
+    // Handlers
     const handleCountryChange = (e) => {
         const { name, value } = e.target;
         setCountryData((prev) => ({ ...prev, [name]: value }));
@@ -52,94 +69,272 @@ const Dashboard = () => {
         setSpecData((prev) => ({ ...prev, [name]: value }));
     };
     const handleScholarshipChange = (e) => {
-        const { name, value } = e.target;
-        setScholarshipData((prev) => ({ ...prev, [name]: value }));
+        const { name, value, type } = e.target;
+        const criteriaFields = ["nationalities", "age", "gender"];
+    
+        const parsedValue = (type === "number" || name.endsWith("_id"))
+            ? (value === "" ? "" : Number(value))
+            : value;
+    
+        if (criteriaFields.includes(name)) {
+            setScholarshipData((prev) => ({
+                ...prev,
+                application_criteria: {
+                    ...prev.application_criteria,
+                    [name]: parsedValue,
+                },
+            }));
+        } else {
+            setScholarshipData((prev) => ({
+                ...prev,
+                [name]: parsedValue,
+            }));
+        }
     };
     const handleReviewChange = (e) => {
         const { name, value } = e.target;
         setReviewData((prev) => ({ ...prev, [name]: value }));
     };
+    
 
-    const handleSubmitCountry = (e) => {
+    // Submit Functions
+    const handleSubmitCountry = async (e) => {
         e.preventDefault();
-        console.log(countryData);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/countries", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(countryData),
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("تمت إضافة البلد بنجاح");
+                setCountryData({ country_name: "", country_rate: "" });
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
-    const handleSubmitCity = (e) => {
+
+    const handleSubmitCity = async (e) => {
         e.preventDefault();
-        console.log(cityLinkData);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/cities", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: ` Bearer ${token}`
+                },
+                body: JSON.stringify(cityLinkData),
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("تمت إضافة المدينة بنجاح");
+                setCityLinkData({ city_name: "", country_id: "" });
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
-    const handleSubmitCategory = (e) => {
+
+    const handleSubmitCategory = async (e) => {
         e.preventDefault();
-        console.log(categoryData);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/categories", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(categoryData),
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("تمت إضافة التصنيف بنجاح");
+                setCategoryData({ category_name: "" });
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
-    const handleSubmitSpecialization = (e) => {
+
+    const handleSubmitSpecialization = async (e) => {
         e.preventDefault();
-        console.log(specData);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/specializations", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(specData),
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("تمت إضافة التخصص بنجاح");
+                setSpecData({ specialization_name: "", category_id: "" });
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
-    const handleSubmitScholarship = (e) => {
+
+    const handleSubmitScholarship = async (e) => {
         e.preventDefault();
-        console.log(scholarshipData);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/scholarships", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify(scholarshipData),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert("تمت إضافة المنحة بنجاح");
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
-    const handleReviewSubmit = (e) => {
+
+    const handleReviewSubmit = async (e) => {
         e.preventDefault();
-        console.log(reviewData);
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/scholarships/${reviewData.scholarship_id}/reviews`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(reviewData),
+                });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("تمت إضافة تجربة الطالب بنجاح");
+                setReviewData({
+                    scholarship_id: "",
+                    reviewer_name: "",
+                    rating: "",
+                    review: "",
+                });
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
-        <>
-            <div
-                dir="rtl"
-                className="bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] !pt-[5.3rem] !px-[20px]"
-            >
-                <h1 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
-                    صفحة الأدمن :
-                </h1>
+        <div
+            dir="rtl"
+            className="min-h-screen mx-auto md:max-w-5xl lg:max-w-7xl bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] py-[5rem] px-[2rem]"
+        >
+            <h1 className="text-[40px] md:text-[50px] dark:text-white font-bold mt-[80px] md:mt-0">
+                صفحة الأدمن :
+            </h1>
+            <h2 className="text-[30px] md:text-[40px] dark:text-white font-bold">
+                لإضافة :
+            </h2>
 
-                <CountryForm
-                    countryData={countryData}
-                    onChange={handleCountryChange}
-                    onSubmit={handleSubmitCountry}
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <ButtonStyle
+                    onClick={() => setActiveTab("tables")}
+                    text="بيانات الجداول"
+                    className="px-[30px]"
                 />
-                <CityForm
-                    cityLinkData={cityLinkData}
-                    onChange={handleCityLinkChange}
-                    onSubmit={handleSubmitCity}
+                <ButtonStyle
+                    onClick={() => setActiveTab("scholarship")}
+                    text="منحة"
                 />
-                <CategoryForm
-                    categoryData={categoryData}
-                    onChange={handleCategoryChange}
-                    onSubmit={handleSubmitCategory}
-                />
-                <SpecForm
-                    specData={specData}
-                    onChange={handleSpecChange}
-                    onSubmit={handleSubmitSpecialization}
-                />
-
-                <h2 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
-                    بيانات المنحة المراد اضافتها :
-                </h2>
-                <ScholarshipForm
-                    scholarshipData={scholarshipData}
-                    onChange={handleScholarshipChange}
-                    onSubmit={handleSubmitScholarship}
+                <ButtonStyle
+                    onClick={() => setActiveTab("review")}
+                    text="تجربة طالب"
+                    className="px-[30px]"
                 />
             </div>
 
-            <div
-                dir="rtl"
-                className="bg-purple-100 text-neutral-800 dark:bg-slate-800 flex flex-col gap-[25px] md:gap-[40px] pb-[5.3rem] !px-[20px]"
-            >
-                <h1 className="text-[40px] md:text-[50px] xl:text-[70px] font-bold dark:text-white mt-[75px] md:mt-0">
-                    لإضافة تجربة طالب بمنحة ما :
-                </h1>
-                <ReviewForm
-                    reviewData={reviewData}
-                    onChange={handleReviewChange}
-                    onSubmit={handleReviewSubmit}
-                />
-            </div>
-        </>
+            {activeTab === "tables" && (
+                <div className="flex flex-col gap-6">
+                    <h2 className="!text-[30px] font-bold dark:text-white">
+                        إضافة بيانات الجداول الأساسية:
+                    </h2>
+                    <CountryForm
+                        countryData={countryData}
+                        onChange={handleCountryChange}
+                        onSubmit={handleSubmitCountry}
+                    />
+                    <CityForm
+                        cityLinkData={cityLinkData}
+                        onChange={handleCityLinkChange}
+                        onSubmit={handleSubmitCity}
+                    />
+                    <CategoryForm
+                        categoryData={categoryData}
+                        onChange={handleCategoryChange}
+                        onSubmit={handleSubmitCategory}
+                    />
+                    <SpecForm
+                        specData={specData}
+                        onChange={handleSpecChange}
+                        onSubmit={handleSubmitSpecialization}
+                    />
+                </div>
+            )}
+
+            {activeTab === "scholarship" && (
+                <>
+                    <h2 className="!text-[35px] font-bold dark:text-white">
+                        بيانات المنحة المراد اضافتها :
+                    </h2>
+                    <ScholarshipForm
+                        scholarshipData={scholarshipData}
+                        onChange={handleScholarshipChange}
+                        onSubmit={handleSubmitScholarship}
+                    />
+                </>
+            )}
+
+            {activeTab === "review" && (
+                <>
+                    <h1 className="!text-[30px] md:text-[50px] xl:text-[70px] font-bold dark:text-white">
+                        لإضافة تجربة طالب بمنحة ما :
+                    </h1>
+                    <ReviewForm
+                        reviewData={reviewData}
+                        onChange={handleReviewChange}
+                        onSubmit={handleReviewSubmit}
+                    />
+                </>
+            )}
+        </div>
     );
 };
 

@@ -5,18 +5,17 @@ const CountryForm = ({ countryData, onChange, onSubmit }) => {
     return (
         <form onSubmit={onSubmit} className="grid lg:grid-cols-2 gap-2 xl:gap-5 xl:gap-x-14 lg:gap-x-8 text-lg md:text-xl">
             <InputField
-                label="رقم البلد :"
-                id="countryNum"
-                name="countryNum"
-                value={countryData.countryNum}
-                type="number"
+                label="اسم البلد :"
+                id="country_name"
+                name="country_name"
+                value={countryData.country_name}
                 onChange={onChange}
             />
             <InputField
                 label="التقييم :"
-                id="rate"
-                name="rate"
-                value={countryData.rate}
+                id="country_rate"
+                name="country_rate"
+                value={countryData.country_rate}
                 type="number"
                 onChange={onChange}
             />
