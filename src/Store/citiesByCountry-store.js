@@ -1,6 +1,7 @@
-import {create} from "zustand";
+// 📁 Store/citiesByCountry-store.js
+import { create } from "zustand";
 
 export const useCitiesByCountryStore = create((set) => ({
-    citiesbycountry: 0,
-    setCitiesByCountry: (newCitiesByCountry) => set({ citiesbycountry: newCitiesByCountry }),
+    selectedCountryId: null,
+    setSelectedCountryId: (id) => set({ selectedCountryId: id }),
 }));

@@ -5,6 +5,7 @@ import AskAI from "../Components/Ask-AI-Components/AskAI.jsx";
 import { Link } from "react-router-dom";
 import { useTokenStore } from "../Store/token-store.js";
 import Notification from "./Notification.jsx";
+import {useNotificationStore} from "../Store/notification-store.js";
 
 
 function Nav() {
@@ -12,6 +13,8 @@ function Nav() {
         const role = useTokenStore((state) => state.role);
         const name = useTokenStore((state) => state.name);
         const logout = useTokenStore((state) => state.logout);
+
+        const unRead = useNotificationStore((state) => state.unRead);
 
         const [listIsOpen, SetListIsOpen] = useState(false);
         const [notificationListOpen, setNotificationListOpen] = useState(false);
@@ -87,13 +90,36 @@ function Nav() {
                                                 </button>
                                                 {logInClick && <LogIn logInClick={logInClick} SetLogInClick={SetLogInClick} />}
                                         </div>}
-                                        {token !== null && <div className="flex">
+                                        {/* {token !== null && <div className="flex">
                                                 <button onClick={() => setNotificationListOpen(!notificationListOpen)} className="font-bold text-xl bg-slate-400 rounded-full px-1 hover:bg-slate-500 cursor-pointer shadow-md shadow-slate-200
                                                   dark:bg-slate-300 dark:hover:bg-slate-400 dark:shadow-slate-400">
                                                         🔔
                                                 </button>
                                                 {notificationListOpen && <Notification notificationListOpen={notificationListOpen} setNotificationListOpen={setNotificationListOpen} />}
-                                        </div>}
+                                        </div>} */}
+                                        {token !== null && (
+                                                <div className="flex relative">
+                                                        <button 
+                                                                onClick={() => setNotificationListOpen(!notificationListOpen)} 
+                                                                // أضفنا relative هنا لنتمكن من وضع الدائرة الحمراء بالنسبة لمكان الزر
+                                                                className="relative font-bold text-xl bg-slate-400 rounded-full px-2 py-1 hover:bg-slate-500 cursor-pointer shadow-md shadow-slate-200 dark:bg-slate-300 dark:hover:bg-slate-400 dark:shadow-slate-400"
+                                                >
+                                                                🔔
+                                                                {/* الدائرة الحمراء تظهر فقط إذا كان هناك إشعارات غير مقروءة أكبر من 0 */}
+                                                                {unRead > 0 && (
+                                                                         <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[11px] font-bold text-white shadow-sm border-2 border-slate-200 dark:border-slate-900">
+                                                                         {unRead > 99 ? '99+' : unRead}
+                                                                        </span>
+                                                                )}
+                                                        </button>
+                                                        {notificationListOpen && (
+                                                        <Notification 
+                                                                        notificationListOpen={notificationListOpen} 
+                                                                        setNotificationListOpen={setNotificationListOpen} 
+                                                        />
+                                                )}
+                                                </div>
+                                                        )}
                                 </div>
                                 <div className="flex md:hidden">{ToggleButton()}</div>
                                 <p className="text-indigo-600 font-bold text-5xl hidden

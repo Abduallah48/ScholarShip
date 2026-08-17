@@ -1,11 +1,13 @@
 import ButtonStyle from "../ButtonStyle";
 import InputField from "../InputField";
-import { useState } from "react";
+//import { useState } from "react";
 
 import useCategories from "../../Hooks/useCategories";
 import useCountries from "../../Hooks/useCountries";
 import useSpecializations from "../../Hooks/useSpecializations";
 import useCities from "../../Hooks/useCities";
+
+
 const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
 
     const { countries } = useCountries();
@@ -42,7 +44,7 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
                     name="country_id"
                     value={scholarshipData.country_id || ""} // نربطها بالـ State الأساسي
                     onChange={onChange} // نستخدم دالة الأب مباشرة
-                    className="text-white flex flex-col md:flex-row gap-2 xl:gap-4 dark:bg-slate-700 overflow-y-auto"
+                    className="text-white flex flex-col md:flex-row gap-2 xl:gap-4 dark:bg-slate-700 overflow-y-auto "
                 >
                     {/* خيار افتراضي */}
                     <option className="text-slate-700 dark:text-slate-50" value="" disabled>اختر البلد</option>
@@ -211,7 +213,7 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
             <div className="flex gap-2">
                 <label className="dark:text-white text-[20px] md:text-[30px]"> الاختصاص :</label>
                 <select
-                    name="country_id"
+                    name="specialization_id"
                     value={scholarshipData.specialization_id || ""}
                     onChange={onChange}
                     className="text-white flex flex-col md:flex-row gap-2 xl:gap-4 dark:bg-slate-700 overflow-y-auto"
@@ -362,7 +364,7 @@ const ScholarshipForm = ({ scholarshipData, onChange, onSubmit }) => {
                 className="lg:col-span-2"
             />
             <div className="lg:col-span-2 flex justify-end mt-4">
-                <ButtonStyle type="submit" text="إضافة المنحة" />
+                <ButtonStyle type="submit" text="إضافة المنحة" className="bg-indigo-700" />
             </div>
         </form>
     );

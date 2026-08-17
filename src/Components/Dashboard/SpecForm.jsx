@@ -47,6 +47,7 @@ const {categories} = useCategories();
             <div className="lg:col-span-2 flex justify-end">
                 <ButtonStyle
                     text="إضافة"
+                    className="bg-indigo-700"
                 />
             </div>
         </form>

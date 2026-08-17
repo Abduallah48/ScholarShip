@@ -13,7 +13,7 @@ const ScholarshipSection = ({ currentScholarshipId }) => {
                 const result = await response.json();
                 
                 setSimilarScholarships(result.data || result);
-                console.log(scholarship)
+                
                 }else{
                     console.log("status not ok", response.status);
                 }

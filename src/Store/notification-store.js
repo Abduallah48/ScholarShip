@@ -8,7 +8,7 @@ export const useNotificationStore = create((set, get) => ({
   unRead: 0,
   isConnected: false,
 
-  // Ingest API response data
+  
   setInitialNotifications: (apiData) => {
     set({
       notifications: apiData?.notifications || [],

@@ -7,10 +7,16 @@ import ScholarshipForm from "./ScholarshipForm";
 import ReviewForm from "./ReviewForm";
 import ButtonStyle from "../ButtonStyle";
 import { useTokenStore } from "../../Store/token-store";
+import { useCitiesByCountryStore } from "../../Store/citiesByCountry-store";
+
 
 const Dashboard = () => {
     const token = useTokenStore((state) => state.token);
     const [activeTab, setActiveTab] = useState("tables");
+
+    const setSelectedCountryId = useCitiesByCountryStore((state) => state.setSelectedCountryId);
+
+    
 
     // States
     const [countryData, setCountryData] = useState({
@@ -55,6 +61,7 @@ const Dashboard = () => {
     const handleCountryChange = (e) => {
         const { name, value } = e.target;
         setCountryData((prev) => ({ ...prev, [name]: value }));
+         
     };
     const handleCityLinkChange = (e) => {
         const { name, value } = e.target;
@@ -68,14 +75,48 @@ const Dashboard = () => {
         const { name, value } = e.target;
         setSpecData((prev) => ({ ...prev, [name]: value }));
     };
+    // const handleScholarshipChange = (e) => {
+    //     const { name, value, type } = e.target;
+    //     const criteriaFields = ["nationalities", "age", "gender"];
+    
+    //     const parsedValue = (type === "number" || name.endsWith("_id"))
+    //         ? (value === "" ? "" : Number(value))
+    //         : value;
+    
+    //     if (criteriaFields.includes(name)) {
+    //         setScholarshipData((prev) => ({
+    //             ...prev,
+    //             application_criteria: {
+    //                 ...prev.application_criteria,
+    //                 [name]: parsedValue,
+    //             },
+    //         }));
+    //     } else {
+    //         setScholarshipData((prev) => ({
+    //             ...prev,
+    //             [name]: parsedValue,
+    //         }));
+    //     }
+    // };
+
     const handleScholarshipChange = (e) => {
         const { name, value, type } = e.target;
         const criteriaFields = ["nationalities", "age", "gender"];
     
+        // 1. This automatically converts the string value to an integer 
+        // because the input name is "country_id" (ends with "_id")
         const parsedValue = (type === "number" || name.endsWith("_id"))
             ? (value === "" ? "" : Number(value))
             : value;
     
+        // 2. 👇 THIS IS THE MAGIC: 
+        // When the user selects a country in the Scholarship Form, 
+        // send the integer ID to your Zustand store to fetch the cities!
+        if (name === "country_id") {
+            setSelectedCountryId(parsedValue);
+        }
+    
+        // 3. Keep updating the rest of the form data normally
         if (criteriaFields.includes(name)) {
             setScholarshipData((prev) => ({
                 ...prev,
@@ -91,6 +132,7 @@ const Dashboard = () => {
             }));
         }
     };
+
     const handleReviewChange = (e) => {
         const { name, value } = e.target;
         setReviewData((prev) => ({ ...prev, [name]: value }));
@@ -113,8 +155,9 @@ const Dashboard = () => {
             const result = await response.json();
 
             if (response.ok) {
-                alert("تمت إضافة البلد بنجاح");
+                console.log("تمت إضافة البلد بنجاح");
                 setCountryData({ country_name: "", country_rate: "" });
+                console.log("Country added successfully:", countryData);
             } else {
                 alert(result.message);
             }
@@ -213,8 +256,30 @@ const Dashboard = () => {
             const result = await response.json();
             if (response.ok) {
                 alert("تمت إضافة المنحة بنجاح");
+                setScholarshipData({
+                    scholarship_name: "",
+                    degree: "",
+                    finance: "",
+                    scholarship_description: "",
+                    donar: "",
+                    start_date: "",
+                    finished_date: "",
+                    scholarship_language: "",
+                    scholarship_link: "",
+                    country_id: "",
+                    city_id: "",
+                    specialization_id: "",
+                    category_id: "",
+                    application_criteria: {
+                    nationalities: "",
+                    age: "",
+                    gender: ""
+        },
+                    how_to_apply_description: ""
+    })
             } else {
                 alert(result.message);
+                console.log("Error adding scholarship:", result, response.status);
             }
         } catch (error) {
             console.error(error);
@@ -268,16 +333,17 @@ const Dashboard = () => {
                 <ButtonStyle
                     onClick={() => setActiveTab("tables")}
                     text="بيانات الجداول"
-                    className="px-[30px]"
+                    className="bg-indigo-700 px-[30px]"
                 />
                 <ButtonStyle
                     onClick={() => setActiveTab("scholarship")}
                     text="منحة"
+                    className="bg-indigo-700"
                 />
                 <ButtonStyle
                     onClick={() => setActiveTab("review")}
                     text="تجربة طالب"
-                    className="px-[30px]"
+                    className="bg-indigo-700 px-[30px]"
                 />
             </div>
 

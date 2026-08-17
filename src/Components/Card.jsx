@@ -12,7 +12,7 @@ function Card({
     const scholarshipID = scholarship.id;
     
     
-    const [isFavorite, setIsFavorite] = useState(scholarship.is_favorite || false);
+    // const [isFavorite, setIsFavorite] = useState(scholarship.is_favorite || false);
 
     const [isFavorite, setIsFavorite] = useState(
         isFromFavorites || scholarship?.is_favorite === true
@@ -22,7 +22,7 @@ function Card({
         return null;
     }
 
-    const scholarshipID = scholarship.id;
+    // const scholarshipID = scholarship.id;
 
     async function addScholarshipToFavorites(id) {
         try {
@@ -76,8 +76,8 @@ function Card({
 
                 setIsFavorite(false);
 
-                // إذا كان الـ Card موجودًا داخل صفحة Favorites
-                // يتم إزالته من القائمة مباشرة
+            
+                
                 if (onFavoriteRemoved) {
                     onFavoriteRemoved(id);
                 }

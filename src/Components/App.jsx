@@ -47,7 +47,7 @@ return(
                 <Route path="/" element={<Home />} ></Route>
                 <Route path="/contact-us" element={<Home />} ></Route>
                 <Route path="/about" element={<Home />} ></Route>
-                <Route path="/detailsPage" element={<DetailsPage />} ></Route>
+                <Route path="/detailsPage/:id" element={<DetailsPage />} ></Route>
                 <Route path="/dashboard" element={<Dashboard />} ></Route>
                 <Route path="/favoraites" element={<Favoraites />}></Route>
             </Routes>
